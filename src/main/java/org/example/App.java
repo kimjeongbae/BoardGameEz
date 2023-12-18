@@ -229,10 +229,6 @@ public class App {
                 lastReviewId++;
 
             } else if (command.equals("리뷰 목록")) {
-                if (loginedUser == null) {
-                    System.out.println("해당 기능은 로그인 후 이용 가능합니다.");
-                    continue;
-                }
 
                 System.out.println("번호 /보드게임 이름 / 리뷰 점수 /    리뷰 내용    /  작성자 / 등록일");
                 System.out.println("=======================================================================================");
