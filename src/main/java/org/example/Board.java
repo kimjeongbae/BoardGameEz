@@ -11,8 +11,8 @@ public class Board {
     int id;
     String title;
     String level;
-    String count;
-    String time;
+    int count;
+    int time;
     String author;
     int like_count;
     String created_date;

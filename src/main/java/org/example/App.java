@@ -65,13 +65,13 @@ public class App {
                 System.out.println("======================================================");
 
                 System.out.println("보드게임 플레이어 수 를 입력해주세요.");
-                System.out.print("추천 플레이 인원 : ");
-                String count = sc.nextLine().trim();
+                System.out.print("추천 플레이 인원 (명) : ");
+                int count = Integer.parseInt(sc.nextLine().trim());
                 System.out.println("======================================================");
 
                 System.out.println("보드게임 플레이 타임을 입력해주세요");
-                System.out.print("플레이 타임 : ");
-                String time = sc.nextLine().trim();
+                System.out.print("플레이 타임 (분) : ");
+                int time = Integer.parseInt(sc.nextLine().trim());
                 System.out.println("======================================================");
 
                 LocalDate now = LocalDate.now();
@@ -82,11 +82,13 @@ public class App {
                 lastBoardId++;
 
             } else if (command.equals("게시글 목록")) {
-                System.out.println("번호 /보드게임 이름 / 게임 난이도 / 추천 인원수 / 플레이 타임 / 작성자 / 좋아요 /등록일");
+                System.out.println("번호 / 보드게임 이름 / 게임 난이도 / 추천 인원수 / 플레이 타임 / 작성자 / 좋아요 /등록일");
                 System.out.println("=======================================================================================");
+
                 for (Board board : boardList) {
-                    System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %s   /  %s \n", board.getId(), board.getTitle(), board.getLevel(), board.getCount() ,board.getTime() , board.getAuthor(), board.getLike_count() ,board.getCreated_date());
+                        System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %s   /  %s \n", board.getId(), board.getTitle(), board.getLevel(), board.getCount()+" 명" ,board.getTime()+" 분" , board.getAuthor(), board.getLike_count() ,board.getCreated_date());
                 }
+
 
             } else if (command.equals("게시글 삭제")) {
 
@@ -160,14 +162,15 @@ public class App {
                 String level = sc.nextLine();
                 System.out.println("======================================================");
 
+
                 System.out.printf("추천 플레이 인원 : %s \n", board.getCount());
                 System.out.print("수정할 추천 인원수  : ");
-                String count = sc.nextLine();
+                int count = Integer.parseInt(sc.nextLine());
                 System.out.println("======================================================");
 
                 System.out.printf("플레이 타임  : %s  \n", board.getTime());
                 System.out.print("수정할 플레이 타임 : ");
-                String time = sc.nextLine();
+                int time = Integer.parseInt(sc.nextLine());
                 System.out.println("======================================================");
 
 
@@ -327,8 +330,8 @@ public class App {
                     continue;
                 }
 
-                System.out.println("좋아요 누를  게시판 번호를 입력하세요.");
-                System.out.print("게시판 번호 : ");
+                System.out.println("좋아요 누를  게시글 번호를 입력하세요.");
+                System.out.print("게시글 번호 : ");
                 int boardId = Integer.parseInt(sc.nextLine().trim());
                 System.out.println("======================================================");
 
@@ -363,17 +366,19 @@ public class App {
                     System.out.println(board.getId() + "번 게시글을 [좋아요] 누르셨습니다.");
                     System.out.println("======================================================");
                 }
-            } else if (command.equals("좋아요 취소")){
+            } else if (command.equals("좋아요 취소")) {
+
                 if (loginedUser == null) {
                     System.out.println("해당 기능은 로그인 후 이용 가능합니다.");
                     continue;
                 }
-                System.out.println("좋아요 취소할 게시판 번호를 입력하세요.");
-                System.out.print("게시판 번호 : ");
+                System.out.println("좋아요 취소할 게시글 번호를 입력하세요.");
+                System.out.print("게시글 번호 : ");
                 int boardId = Integer.parseInt(sc.nextLine().trim());
                 System.out.println("======================================================");
 
                 Board board = null;
+
                 for (int i = 0; i < boardList.size(); i++) {
                     if (boardId == boardList.get(i).getId()) {
                         board = boardList.get(i);
@@ -386,16 +391,17 @@ public class App {
                     continue;
                 }
 
+
                 boolean alreadyUnliked = false;
                 for (Like like : likeList) {
                     if (like.getBoardId() == boardId && like.getUserId().equals(loginedUser.getNickname())) {
-                        // 좋아요를 누른 경우에만 제거
                         likeList.remove(like);
-                        board.setLike_count(board.getLike_count() - 1);
                         alreadyUnliked = true;
+                        board.setLike_count(board.getLike_count() - 1);
                         System.out.println(board.getId() + "번 게시글에 [좋아요 취소]를 누르셨습니다.");
                         System.out.println("======================================================");
                     }
+                }
                     if (!alreadyUnliked) {
                         System.out.println("해당 게시글은 [좋아요] 가 없습니다.");
                         System.out.println("======================================================");
@@ -403,7 +409,6 @@ public class App {
 
 
                 }
-            }
             else if (command.equals("회원가입")) {
                 System.out.println("회원 가입 페이지 입니다.");
 
