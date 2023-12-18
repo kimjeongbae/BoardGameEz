@@ -1,10 +1,22 @@
 package org.example.user;
 
-import org.example.User;
-
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserController {
+    List<User> userList = new ArrayList<>();
+    int lastUserId = 1;
+    User loginedUser = null;
+
+    public  UserController () {
+        User user1 = new User(1,"user1","1234","둘리", LocalDate.now().toString(),LocalDate.now().toString());
+        userList.add(user1);
+        User user2 = new User(2,"user2","1234","짱구",LocalDate.now().toString(),LocalDate.now().toString());
+        userList.add(user2);
+        User user3 = new User(3,"user3","1234","코난",LocalDate.now().toString(),LocalDate.now().toString());
+        userList.add(user3);
+    }
 
     public void join () {
         System.out.println("회원 가입 페이지 입니다.");
@@ -53,7 +65,6 @@ public class UserController {
 
         System.out.print("닉네임 : ");
         nickname = sc.nextLine().trim();
-
 
 
 

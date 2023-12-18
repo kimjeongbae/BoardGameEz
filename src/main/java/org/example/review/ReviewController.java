@@ -3,8 +3,12 @@ package org.example.review;
 import org.example.board.Board;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReviewController {
+    List<Review> reviewList = new ArrayList<>();
+    int lastReviewId = 1;
     public void create () {
 
         if (loginedUser == null) {

@@ -2,9 +2,13 @@ package org.example.like;
 
 import org.example.board.Board;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class LikeController {
+    List<Like> likeList = new ArrayList<>();
+    int likeId = 1;
 
     public void like_up () {
         if (loginedUser == null) {

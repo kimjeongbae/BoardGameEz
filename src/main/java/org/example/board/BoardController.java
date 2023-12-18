@@ -1,8 +1,12 @@
 package org.example.board;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BoardController {
+    List<Board> boardList = new ArrayList<>();
+    int lastBoardId = 1;
 
     public void creat () {
 

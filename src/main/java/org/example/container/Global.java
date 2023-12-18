@@ -1,25 +1,28 @@
 package org.example.container;
 
-import org.example.User;
-import org.example.board.Board;
-import org.example.like.Like;
-import org.example.review.Review;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
+
+@Getter
+@Setter
 import java.util.Scanner;
 
 public class Global {
     Scanner sc = new Scanner(System.in);
-    List<Like> likeList = new ArrayList<>();
-    int likeId = 1;
-    List<Review> reviewList = new ArrayList<>();
-    int lastReviewId = 1;
 
-    List<User> userList = new ArrayList<>();
-    int lastUserId = 1;
-    List<Board> boardList = new ArrayList<>();
-    int lastBoardId = 1;
+    public static void initScanner () {
+        scanner = new Scanner(System.in);
+    }
 
-    User loginedUser = null;
+    public static void exitScanner () {
+        scanner.close();
+    }
+
+    public static Scanner getScanner () {
+        return scanner;
+    }
+
+
 }
