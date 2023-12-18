@@ -2,6 +2,7 @@ package org.example;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -355,11 +356,11 @@ public class App {
                     }
                 }
 
+                // 좋아요를 누르지 않은 경우에만 추가
                 if (!alreadyLiked) {
-                    // 좋아요를 누르지 않은 경우에만 추가
                     Like like = new Like(likeId, boardId, loginedUser.getNickname());
                     likeList.add(like);
-                    board.setLike_count(board.getLike_count() + 1); // 좋아요 수 증가
+                    board.setLike_count(board.getLike_count() + 1);
                     likeId++;
                     System.out.println(board.getId() + "번 게시글을 [좋아요] 누르셨습니다.");
                     System.out.println("======================================================");
@@ -389,11 +390,14 @@ public class App {
                     continue;
                 }
 
-
+                // 반복자(iterator)를 사용하여 likeList에서
+                // ConcurrentModificationException 문제를 피하도록 수정
                 boolean alreadyUnliked = false;
-                for (Like like : likeList) {
+                Iterator<Like> iterator = likeList.iterator();
+                while (iterator.hasNext()) {
+                    Like like = iterator.next();
                     if (like.getBoardId() == boardId && like.getUserId().equals(loginedUser.getNickname())) {
-                        likeList.remove(like);
+                        iterator.remove();
                         alreadyUnliked = true;
                         board.setLike_count(board.getLike_count() - 1);
                         System.out.println(board.getId() + "번 게시글에 [좋아요 취소]를 누르셨습니다.");
@@ -432,7 +436,7 @@ public class App {
                         }
                     }
 
-                    // 중복 아이디 없느 경우
+                    // 중복 아이디 없는 경우
                     if (!isDuplcated) {
                         break;
                     }
