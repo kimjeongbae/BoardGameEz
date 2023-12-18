@@ -7,13 +7,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Board {
+public class Review {
     int id;
-    String title;
-    String level;
-    String count;
-    String time;
+    String boardTitle;
+    String score;
+    String content;
     String author;
-    int like_count;
     String created_date;
 }

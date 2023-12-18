@@ -5,15 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-@Getter
 @Setter
-public class Board {
+@Getter
+public class User {
     int id;
-    String title;
-    String level;
-    String count;
-    String time;
-    String author;
-    int like_count;
+    String user_Id;
+    String password;
+    String nickname;
     String created_date;
+    String modified_date;
+
 }
