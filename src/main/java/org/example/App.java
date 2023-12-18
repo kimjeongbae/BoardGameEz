@@ -9,9 +9,9 @@ public class App {
     void run () {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("================ 보드게임 추천 게시판 ================");
-        System.out.println("  로그인  /  회원가입  /  게시판  /  리뷰  /  좋아요 ");
-        System.out.println("======================================================");
+        System.out.println("==================== 보드게임 추천 게시판 ====================");
+        System.out.println(" 로그인 / 회원가입 / 메뉴  / 게시판 /  리뷰  / 좋아요 /  검색 ");
+        System.out.println("==============================================================");
 
         List<Like> likeList = new ArrayList<>();
         int likeId = 1;
@@ -43,8 +43,11 @@ public class App {
 
             if (command.equals("종료")) {
                 break;
+            }else if (command.equals("메뉴")){
+                System.out.println("========================= 전체 메뉴 =========================");
+                System.out.println("  로그인  /  회원가입  /  게시판  /  리뷰  /  좋아요 /  조회  ");
+                System.out.println("==============================================================");
             } else if (command.equals("게시판")) {
-                System.out.println("======================================================");
                 System.out.println("게시글 작성 / 게시글 목록 / 게시글 삭제 / 게시글 수정");
                 System.out.println("======================================================");
             } else if (command.equals("게시글 작성")) {
@@ -182,7 +185,6 @@ public class App {
                 System.out.println(modifyId + " 번 게시글이 수정 되었습니다.");
 
             } else if (command.equals("리뷰")){
-                System.out.println("======================================================");
                 System.out.println(" 리뷰 작성  /  리뷰 목록  /  리뷰 삭제  /  리뷰 수정");
                 System.out.println("======================================================");
 
@@ -417,6 +419,7 @@ public class App {
 
 
                 while (true) {
+
                     System.out.print("아이디 : ");
                     user_id = sc.nextLine().trim();
 
@@ -468,7 +471,7 @@ public class App {
                 }
 
                 User checkedUser = null;
-
+                System.out.println("로그인 페이지 입니다.");
                 System.out.printf("아이디 : ");
                 String userId = sc.nextLine().trim();
 
@@ -507,6 +510,22 @@ public class App {
                 System.out.println("로그아웃 되었습니다.");
                 System.out.println("======================================================");
             }
+            else if (command.equals("검색")) {
+                System.out.println("키워드를 입력하세요. | 게시판 검색 / 리뷰 검색 |");
+                System.out.println("======================================================");
+            }
+            else if (command.equals("게시판 검색")){
+                System.out.println("게시판 검색 입니다.");
+                System.out.println("보드게임 이름 또는 작성자를 입력하세요.");
+                System.out.println("======================================================");
+            }
+            else if (command.equals("리뷰 검색")){
+                System.out.println("리뷰 검색 입니다.");
+                System.out.println("보드게임 이름 또는 작성자를 입력하세요.");
+                System.out.println("======================================================");
+            }
+
+
         }
 
 
