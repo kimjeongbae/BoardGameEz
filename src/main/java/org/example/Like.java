@@ -10,7 +10,8 @@ import lombok.Setter;
 
 public class Like {
     int id;
-    String userId;
+
     int boardId;
+    String userId;
 
 }
