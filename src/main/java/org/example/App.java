@@ -11,7 +11,7 @@ public class App {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("==================== 보드게임 추천 게시판 ====================");
-        System.out.println(" 로그인 / 회원가입 / 메뉴  / 게시판 /  리뷰  / 좋아요 /  검색 ");
+        System.out.println(" 로그인 / 회원가입 / 메뉴 / 게시판 / 리뷰 / 좋아요 메뉴 / 검색 ");
         System.out.println("==============================================================");
 
         List<Like> likeList = new ArrayList<>();
@@ -46,7 +46,7 @@ public class App {
                 break;
             }else if (command.equals("메뉴")){
                 System.out.println("========================= 전체 메뉴 =========================");
-                System.out.println("  로그인  /  회원가입  /  게시판  /  리뷰  /  좋아요 /  조회  ");
+                System.out.println("  로그인  /  회원가입  /  게시판  /  리뷰  / 좋아요 메뉴 / 검색");
                 System.out.println("==============================================================");
             } else if (command.equals("게시판")) {
                 System.out.println("게시글 작성 / 게시글 목록 / 게시글 삭제 / 게시글 수정");
