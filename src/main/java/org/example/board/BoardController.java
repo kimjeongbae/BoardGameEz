@@ -71,10 +71,9 @@ public class BoardController {
             return;
         }
 
-        int id = this.boardService.delete(board);
+        this.boardService.delete(board);
 
-
-        System.out.println(id + " 번 게시글이 삭제 되었습니다.");
+        System.out.println(removeId + " 번 게시글이 삭제 되었습니다.");
 
     }
 
@@ -135,9 +134,9 @@ public class BoardController {
         int time = Integer.parseInt(Global.getScanner().nextLine());
         System.out.println("======================================================");
 
-        int id = this.boardService.update(board,title,level,count,time);
+        this.boardService.update(board,title,level,count,time);
 
-        System.out.println(id + " 번 게시글이 수정 되었습니다.");
+        System.out.println(board.getId() + " 번 게시글이 수정 되었습니다.");
     }
 
 }

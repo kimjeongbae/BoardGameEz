@@ -18,16 +18,16 @@ public class BoardService {
         return this.boardRepository.findByAll();
     }
 
-    public int delete(Board board) {
-        return this.boardRepository.delete(board);
+    public void delete(Board board) {
+        this.boardRepository.delete(board);
     }
 
     public Board boardFindId(int id) {
         return this.boardRepository.boardFindId(id);
     }
 
-    public int update(Board board, String title, String level, int count, int time) {
-        return this.boardRepository.update(board, title, level, count, time);
+    public void update(Board board, String title, String level, int count, int time) {
+        this.boardRepository.update(board, title, level, count, time);
     }
 
     public void likeCountUp(Board board) {

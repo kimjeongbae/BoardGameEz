@@ -1,13 +1,15 @@
-CREATE DATABASE B1;
-USE B1;
+CREATE DATABASE bproj;
+USE bproj;
+
+DROP TABLE `user`;
+DROP TABLE `board`;
 
 CREATE TABLE `user` (
 	id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`user_id` VARCHAR(100) NOT NULL,
 	`password` VARCHAR(100) NOT NULL,
 	`nickname` VARCHAR(100) NOT NULL,
-	`created_date` DATETIME NOT NULL,
-	`modified_date` DATETIME NOT NULL
+	`created_date` DATETIME NOT NULL
 );
 
 CREATE TABLE `board` (
@@ -16,24 +18,24 @@ CREATE TABLE `board` (
 	`level` VARCHAR(100) NOT NULL,
 	`count` INT UNSIGNED NOT NULL,
 	`time` INT UNSIGNED NOT NULL,
-	created_date DATETIME NOT NULL,
-	modified_date DATETIME NOT NULL
+	`user_id` int NOT NULL,
+	`like_count` INT UNSIGNED NOT NULL,
+	created_date DATETIME NOT NULL
 );
 
 CREATE TABLE review (
 	id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`nickname` VARCHAR(100) NOT NULL,
-	`score` INT UNSIGNED NOT NULL,
+	`boardTitle` VARCHAR(100) NOT NULL,
+	`score` VARCHAR(100) NOT NULL,
 	`content` TEXT NOT NULL,
-	created_date DATETIME NOT NULL,
-	modified_date DATETIME NOT NULL
+	`author` VARCHAR(100) NOT NULL,
+	created_date DATETIME NOT NULL
 );
 
 CREATE TABLE `like` (
 	id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`user_id` VARCHAR(100) NOT NULL,
-	created_date DATETIME NOT NULL,
-	modified_date DATETIME NOT NULL
+	`boardId` INT UNSIGNED NOT NULL,
+	`userId` VARCHAR(100) NOT NULL
 );
 
 
@@ -42,51 +44,57 @@ DESC `user`;
 SELECT * FROM `user`;
 
 INSERT INTO `user`
-SET created_date = NOW(),
-modified_date = NOW(),
-`user_id` = '플레이어1',
+SET `user_id` = '플레이어1',
 `password` = '1234',
-`nickname` = '짱구';
+`nickname` = '짱구',
+created_date = NOW();
 
 INSERT INTO `user`
-SET created_date = NOW(),
-modified_date = NOW(),
-`user_id` = '플레이어2',
+SET `user_id` = '플레이어2',
 `password` = '1234',
-`nickname` = '둘리';
+`nickname` = '둘리',
+created_date = NOW();
 
 INSERT INTO `user`
-SET created_date = NOW(),
-modified_date = NOW(),
-`user_id` = '플레이어3',
+SET `user_id` = '플레이어3',
 `password` = '1234',
-`nickname` = '코난';
+`nickname` = '코난',
+created_date = NOW();
 
 
 INSERT INTO board
-SET created_date = NOW(),
-modified_date = NOW(),
-`title` = '테스트1',
-`level` = '상',
+SET `title` = '젠가',
+`level` = '하',
 `count` = 2,
-`time` = 30;
+`time` = 10,
+`user_id` = 1,
+`like_count` = 0,
+created_date = NOW();
 
 INSERT INTO board
-SET created_date = NOW(),
-modified_date = NOW(),
-`title` = '테스트2',
-`level` = '중',
-`count` = 4,
-`time` = 20;
+SET `title` = '루미큐브',
+`level` = '하',
+`count` = 2,
+`time` = 15,
+`user_id` = 2,
+`like_count` = 0,
+created_date = NOW();
+
 
 SELECT * FROM `board`;
+SELECT * FROM `user`;
 
 INSERT INTO review
-SET created_date = NOW(),
-modified_date = NOW(),
-`nickname` = '짱구',
+SET `nickname` = '짱구',
 `score` = 7,
-`content` = "너무어려워요";
+`content` = "너무어려워요",
+created_date = NOW();
+
+
+SELECT `nickname` AS 작성자
+FROM board AS B
+INNER JOIN `user` AS U
+ON B.user_id = U.id;
 
 
 SELECT * FROM `review`;
