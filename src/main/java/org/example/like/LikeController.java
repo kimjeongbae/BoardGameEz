@@ -36,8 +36,8 @@ public class LikeController {
             System.out.println("해당 게시글은 이미 [좋아요] 누르셨습니다.");
             System.out.println("======================================================");
         } else {
-            likeService.save(boardId);
-            System.out.println(board.getId() + "번 게시글을 [좋아요] 누르셨습니다.");
+            int id = likeService.save(boardId);
+            System.out.println(id + "번 게시글을 [좋아요] 누르셨습니다.");
             System.out.println("======================================================");
         }
 
@@ -66,7 +66,7 @@ public class LikeController {
             System.out.println("======================================================");
         } else {
             this.likeService.removeLike(boardId);
-            System.out.println(board.getId() + "번 게시글에 [좋아요 취소]를 누르셨습니다.");
+            System.out.println(boardId + "번 게시글에 [좋아요 취소]를 누르셨습니다.");
             System.out.println("======================================================");
         }
     }

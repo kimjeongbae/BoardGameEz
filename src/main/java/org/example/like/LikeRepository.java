@@ -9,11 +9,10 @@ import java.util.List;
 
 public class LikeRepository {
     List<Like> likeList = new ArrayList<>();
-    int likeId = 1;
 
     Board board;
 
-    LikeRepository (Board board) {
+    public LikeRepository (Board board) {
         this.board = board;
     }
 

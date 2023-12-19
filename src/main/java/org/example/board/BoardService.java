@@ -19,7 +19,7 @@ public class BoardService {
     }
 
     public int delete(Board board) {
-        return this.boardRepository.delte(board);
+        return this.boardRepository.delete(board);
     }
 
     public Board boardFindId(int id) {

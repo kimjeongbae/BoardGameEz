@@ -1,5 +1,6 @@
 package org.example.review;
 
+import lombok.AllArgsConstructor;
 import org.example.board.Board;
 import org.example.container.Global;
 
@@ -9,8 +10,12 @@ import java.util.List;
 public class ReviewRepository {
     List<Review> reviewList = new ArrayList<>();
     int lastReviewId = 1;
+    Board board;
 
-    Board
+    ReviewRepository () {
+        board = new Board();
+    }
+
 
 
     public int save (String score, String content) {

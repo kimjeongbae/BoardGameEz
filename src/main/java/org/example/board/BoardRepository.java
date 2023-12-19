@@ -21,7 +21,7 @@ public class BoardRepository {
     public List<Board> findByAll() {
         return boardList;
     }
-    public int delte (Board board) {
+    public int delete (Board board) {
         boardList.remove(board);
 
         return board.getId();

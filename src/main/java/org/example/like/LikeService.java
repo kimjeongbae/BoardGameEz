@@ -5,29 +5,32 @@ import org.example.board.Board;
 import java.util.List;
 
 public class LikeService {
-    private  LikeRepository likeRepository;
+    LikeRepository likeRepository;
 
-    LikeService () {
+    LikeService() {
         likeRepository = new LikeRepository();
     }
 
 
-    public int save (String boardId) {
-        this.likeRepository.save(boardId);
+    public int save(int boardId) {
+        return this.likeRepository.save(boardId);
     }
 
-    public List<Like> findByAll() {
+    public List<Like> findByAll(int boardId) {
         this.likeRepository.findByAll();
     }
+
     public Board findBoardById(int boardId) {
         this.likeRepository.findBoardById(boardId);
     }
-    public boolean alreadyLiked(String boardId) {
-        this.alreadyLiked(boardId);
+
+    public boolean alreadyLiked(int boardId) {
+        return this.alreadyLiked(boardId);
+
     }
 
-    public void removeLike(String boardId) {
+    public void removeLike(int boardId) {
         this.removeLike(boardId);
     }
-}
 
+}
