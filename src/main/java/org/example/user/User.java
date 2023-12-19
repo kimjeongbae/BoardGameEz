@@ -13,6 +13,5 @@ public class User {
     String password;
     String nickname;
     String created_date;
-    String modified_date;
 
 }

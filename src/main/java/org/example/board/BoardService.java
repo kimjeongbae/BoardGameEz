@@ -6,7 +6,7 @@ import java.util.List;
 public class BoardService {
     BoardRepository boardRepository;
 
-    BoardService() {
+    public BoardService() {
         boardRepository = new BoardRepository();
     }
 
@@ -28,5 +28,13 @@ public class BoardService {
 
     public int update(Board board, String title, String level, int count, int time) {
         return this.boardRepository.update(board, title, level, count, time);
+    }
+
+    public void likeCountUp(Board board) {
+        this.boardRepository.likeCountUp(board);
+    }
+
+    public void likeCountDown(Board board) {
+        this.boardRepository.likeCountDown(board);
     }
 }

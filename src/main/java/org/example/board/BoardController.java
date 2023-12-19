@@ -85,6 +85,7 @@ public class BoardController {
         System.out.println("=======================================================================================");
 
         for (Board board : boardList) {
+
             System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %s   /  %s \n", board.getId(), board.getTitle(), board.getLevel(), board.getCount()+" 명" ,board.getTime()+" 분" , board.getAuthor(), board.getLike_count() ,board.getCreated_date());
         }
     }

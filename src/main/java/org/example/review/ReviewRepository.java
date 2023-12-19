@@ -10,16 +10,10 @@ import java.util.List;
 public class ReviewRepository {
     List<Review> reviewList = new ArrayList<>();
     int lastReviewId = 1;
-    Board board;
-
-    ReviewRepository () {
-        board = new Board();
-    }
 
 
-
-    public int save (String score, String content) {
-        Review review = new Review(lastReviewId,board.getTitle(), score, content, Global.getLogineUser().getNickname() , Global.nowDateTime());
+    public int save (String boardTitle, String score, String content) {
+        Review review = new Review(lastReviewId, boardTitle, score, content, Global.getLogineUser().getNickname() , Global.nowDateTime());
         reviewList.add(review);
 
         lastReviewId++;

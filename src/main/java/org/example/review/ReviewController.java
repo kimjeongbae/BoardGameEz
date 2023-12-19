@@ -45,7 +45,7 @@ public class ReviewController {
         String content = Global.getScanner().nextLine();
         System.out.println("======================================================");
 
-        int id =this.reviewService.save(score,content);
+        int id = this.reviewService.save(board.getTitle(), score, content);
 
         System.out.println(id+ "번 리뷰글이 등록 되었습니다.");
 

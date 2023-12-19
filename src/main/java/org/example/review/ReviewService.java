@@ -10,8 +10,8 @@ public class ReviewService {
         reviewRepository = new ReviewRepository();
     }
 
-    public int save (String score, String content) {
-        return this.reviewRepository.save(score,content);
+    public int save (String boardTitle, String score, String content) {
+        return this.reviewRepository.save(boardTitle, score,content);
 
     }
 

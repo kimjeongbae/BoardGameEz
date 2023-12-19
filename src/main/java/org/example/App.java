@@ -3,10 +3,13 @@ package org.example;
 
 import org.example.board.BoardController;
 import org.example.container.Global;
+import org.example.db.DBConnection;
 import org.example.like.LikeController;
 import org.example.review.ReviewController;
 import org.example.user.UserController;
 
+import java.util.List;
+import java.util.Map;
 
 
 public class App {
@@ -17,6 +20,13 @@ public class App {
     UserController userController;
 
     App() {
+
+        DBConnection.DB_NAME = "bproj";
+        DBConnection.DB_PORT = 3306;
+        DBConnection.DB_USER = "root";
+        DBConnection.DB_PASSWORD = "";
+
+        Global.getDBConnection().connect();
 
         boardController = new BoardController();
         likeController = new LikeController();

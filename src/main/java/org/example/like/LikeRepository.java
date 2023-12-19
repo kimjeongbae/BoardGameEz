@@ -10,42 +10,34 @@ import java.util.List;
 public class LikeRepository {
     List<Like> likeList = new ArrayList<>();
 
-    Board board;
-
-    public LikeRepository (Board board) {
-        this.board = board;
-    }
+    int lastLikeId = 1;
 
 
-    public int save (String boardId) {
-        Like like = new Like(boardId, Global.getLogineUser().getNickname());
+    public int save (int boardId) {
+        Like like = new Like(lastLikeId, boardId, Global.getLogineUser().getNickname());
         likeList.add(like);
-        board.setLike_count(board.getLike_count()+1);
+        lastLikeId++;
         return like.getId();
     }
 
     public List<Like> findByAll() {
         return likeList;
     }
-    public Board findBoardById(int boardId) {
-        return null;
-    }
-    public boolean alreadyLiked(String boardId) {
+    public boolean alreadyLiked(int boardId) {
         for (Like like : likeList) {
-            if (like.getBoardId().equals(boardId) && like.getUserId().equals(Global.getLogineUser().getNickname())) {
+            if (like.getBoardId() == boardId && like.getUserId().equals(Global.getLogineUser().getNickname())) {
                 return true;
             }
         }
         return false;
     }
 
-    public void removeLike(String boardId) {
+    public void removeLike(int boardId) {
         Iterator<Like> iterator = likeList.iterator();
         while (iterator.hasNext()) {
             Like like = iterator.next();
-            if (like.getBoardId().equals(boardId) && like.getUserId().equals(Global.getLogineUser().getNickname())) {
+            if (like.getBoardId() == boardId && like.getUserId().equals(Global.getLogineUser().getNickname())) {
                 iterator.remove();
-                board.setLike_count(board.getLike_count() - 1);
             }
         }
     }

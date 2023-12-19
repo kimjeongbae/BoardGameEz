@@ -1,14 +1,17 @@
 package org.example.like;
 
 import org.example.board.Board;
+import org.example.board.BoardService;
 import org.example.container.Global;
 import java.util.List;
 
 public class LikeController {
 
     LikeService likeService;
+    BoardService boardService;
     public LikeController () {
         likeService = new LikeService();
+        boardService = new BoardService();
     }
 
 
@@ -24,7 +27,7 @@ public class LikeController {
         int boardId = Integer.parseInt(Global.getScanner().nextLine().trim());
         System.out.println("======================================================");
 
-        Board board = likeService.findBoardById(boardId);
+        Board board = boardService.boardFindId(boardId);
 
         if (board == null) {
             System.out.println("해당 게시글은 존재 하지 않습니다.");
@@ -37,6 +40,10 @@ public class LikeController {
             System.out.println("======================================================");
         } else {
             int id = likeService.save(boardId);
+            if (id > 0) {
+                Board likeBoard = boardService.boardFindId(boardId);
+                this.boardService.likeCountUp(likeBoard);
+            }
             System.out.println(id + "번 게시글을 [좋아요] 누르셨습니다.");
             System.out.println("======================================================");
         }
@@ -54,7 +61,7 @@ public class LikeController {
         System.out.println("======================================================");
 
         List<Like> likeList = likeService.findByAll(boardId);
-        Board board = likeService.findBoardById(boardId);
+        Board board = boardService.boardFindId(boardId);
 
         if(board == null){
             System.out.println("해당 게시글은 존재하지 않습니다.");
@@ -66,6 +73,10 @@ public class LikeController {
             System.out.println("======================================================");
         } else {
             this.likeService.removeLike(boardId);
+
+            Board likeBoard = boardService.boardFindId(boardId);
+            this.boardService.likeCountDown(likeBoard);
+
             System.out.println(boardId + "번 게시글에 [좋아요 취소]를 누르셨습니다.");
             System.out.println("======================================================");
         }

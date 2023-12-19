@@ -7,15 +7,16 @@ import java.util.List;
 
 public class BoardRepository {
     List<Board> boardList = new ArrayList<>();
-    int lastBoardId = 1;
+
 
     public int save (String title, String level, int count, int time) {
-        Board board = new Board(lastBoardId, title, level, count, time , Global.getLogineUser().getNickname(),0,Global.nowDateTime());
-        boardList.add(board);
+//        title, level, count, time , Global.getLogineUser().getNickname(),0
+      String sql = String.format("INSERT INTO board SET title = '%s' , level = '%s' , count = '%d' , time = '%d', author = '%s',like_count = '%d' , created_date=now();" , title,count,time, Global.getLogineUser().getNickname(),0);
 
-        lastBoardId++;
+      int id = Global.getDBConnection().insert(sql);
 
-        return board.getId();
+      return id;
+
     }
 
     public List<Board> findByAll() {
@@ -43,5 +44,13 @@ public class BoardRepository {
         board.setTime(time);
 
         return board.getId();
+    }
+
+    public void likeCountUp(Board board) {
+        board.setLike_count(board.getLike_count() + 1);
+    }
+
+    public void likeCountDown(Board board) {
+        board.setLike_count(board.getLike_count() - 1);
     }
 }
