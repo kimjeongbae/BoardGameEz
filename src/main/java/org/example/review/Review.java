@@ -8,10 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Review {
-    int id;
-    String boardTitle;
-    String score;
-    String content;
-    String author;
-    String created_date;
+    private int id;
+    private String boardTitle;
+    private String score;
+    private String content;
+    private String author;
+    private String created_date;
 }

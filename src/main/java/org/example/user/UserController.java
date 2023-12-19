@@ -1,24 +1,22 @@
 package org.example.user;
 
+import org.example.container.Global;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserController {
-    List<User> userList = new ArrayList<>();
-    int lastUserId = 1;
-    User loginedUser = null;
 
-    public  UserController () {
-        User user1 = new User(1,"user1","1234","둘리", LocalDate.now().toString(),LocalDate.now().toString());
-        userList.add(user1);
-        User user2 = new User(2,"user2","1234","짱구",LocalDate.now().toString(),LocalDate.now().toString());
-        userList.add(user2);
-        User user3 = new User(3,"user3","1234","코난",LocalDate.now().toString(),LocalDate.now().toString());
-        userList.add(user3);
+
+    UserService userService;
+
+    public UserController () {
+        userService = new UserService();
     }
 
-    public void join () {
+
+    public void join() {
         System.out.println("회원 가입 페이지 입니다.");
 
         String user_id;
@@ -28,19 +26,16 @@ public class UserController {
         LocalDate now = LocalDate.now();
 
 
-
         while (true) {
-
             System.out.print("아이디 : ");
-            user_id = sc.nextLine().trim();
-
+            user_id = Global.getScanner().nextLine().trim();
             boolean isDuplcated = false;
 
-            for (User user : userList) {
-                if(user_id.equals(user.getUser_Id())) {
-                    System.out.println("중복 하는 아이디가 존재 합니다.");
-                    isDuplcated = true;
-                }
+
+            User user = this.userService.userFindByUserId(user_id);
+            if (user != null){
+                System.out.println("중복 하는 아이디가 존재 합니다.");
+                isDuplcated = true;
             }
 
             // 중복 아이디 없는 경우
@@ -51,10 +46,10 @@ public class UserController {
 
         while (true) {
             System.out.print("비밀번호 : ");
-            password = sc.nextLine().trim();
+            password = Global.getScanner().nextLine().trim();
 
             System.out.print("비밀번호 확인 : ");
-            passwordConfirm = sc.nextLine().trim();
+            passwordConfirm = Global.getScanner().nextLine().trim();
 
             if (password.equals(passwordConfirm)) {
                 break;
@@ -64,61 +59,63 @@ public class UserController {
         }
 
         System.out.print("닉네임 : ");
-        nickname = sc.nextLine().trim();
+        nickname = Global.getScanner().nextLine().trim();
+
+        String joinedUserId = this.userService.create(user_id,password,nickname);
 
 
-
-        User user = new User(lastUserId,user_id,password,nickname,now.toString(),now.toString());
-        userList.add(user);
-        System.out.println(nickname+"님 가입을 환영 합니다.");
+        System.out.println(joinedUserId + "님 가입을 환영 합니다.");
         System.out.println("======================================================");
-        lastUserId++;
+
 
     }
-    public void login () {
-        if (loginedUser != null) {
+
+    public void login() {
+
+        if (Global.getLogineUser() != null) {
             System.out.println("현재 로그인 상태입니다.");
-            continue;
+            return;
         }
 
         User checkedUser = null;
         System.out.println("로그인 페이지 입니다.");
         System.out.printf("아이디 : ");
-        String userId = sc.nextLine().trim();
+        String userId = Global.getScanner().nextLine().trim();
 
         System.out.printf("비밀번호 : ");
-        String password = sc.nextLine().trim();
+        String password = Global.getScanner().nextLine().trim();
 
-        for (User user : userList) {
-            if (userId.equals(user.user_Id)) {
-                checkedUser = user;
-                break;
-            }
-        }
+        User user = this.userService.userFindByUserId(userId);
+        checkedUser = user;
+
 
         if (checkedUser == null) {
             System.out.println("해당 회원이 존재하지 않습니다.");
             System.out.println("======================================================");
-            continue;
+            return;
         } else if (checkedUser.password.equals(password) == false) {
             System.out.println("비밀번호가 일치 하지 않습니다.");
             System.out.println("======================================================");
-            continue;
+            return;
         }
 
-        loginedUser = checkedUser;
+        this.userService.loing(checkedUser);
 
         System.out.println(checkedUser.getNickname() + "님 환영합니다.");
         System.out.println("======================================================");
     }
-    public void logout () {
-        if (loginedUser == null) {
+
+    public void logout() {
+        if (Global.getLogineUser() == null) {
             System.out.println("로그인 상태가 아닙니다.");
-            continue;
+            return;
         }
 
-        loginedUser = null;
+        this.userService.logout();
+
         System.out.println("로그아웃 되었습니다.");
         System.out.println("======================================================");
     }
+
+
 }

@@ -8,12 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Board {
-    int id;
-    String title;
-    String level;
-    int count;
-    int time;
-    String author;
-    int like_count;
-    String created_date;
+    private int id;
+    private String title;
+    private String level;
+    private int count;
+    private int time;
+    private String author;
+    private int like_count;
+    private String created_date;
 }

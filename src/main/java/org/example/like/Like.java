@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 
 public class Like {
-    int id;
-    int boardId;
-    String userId;
+    private int id;
+    private int boardId;
+    private String userId;
 
 }
