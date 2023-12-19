@@ -17,15 +17,17 @@ public class LikeService {
     }
 
     public List<Like> findByAll() {
+        this.likeRepository.findByAll();
     }
     public Board findBoardById(int boardId) {
+        this.likeRepository.findBoardById(boardId);
     }
     public boolean alreadyLiked(String boardId) {
-
+        this.alreadyLiked(boardId);
     }
 
     public void removeLike(String boardId) {
-
+        this.removeLike(boardId);
     }
 }
 

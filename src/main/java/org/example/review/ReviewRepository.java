@@ -1,5 +1,6 @@
 package org.example.review;
 
+import org.example.board.Board;
 import org.example.container.Global;
 
 import java.util.ArrayList;
@@ -9,9 +10,8 @@ public class ReviewRepository {
     List<Review> reviewList = new ArrayList<>();
     int lastReviewId = 1;
 
-    public ReviewService () {
+    Board
 
-    }
 
     public int save (String score, String content) {
         Review review = new Review(lastReviewId,board.getTitle(), score, content, Global.getLogineUser().getNickname() , Global.nowDateTime());

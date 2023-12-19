@@ -1,0 +1,95 @@
+CREATE DATABASE B1;
+USE B1;
+
+CREATE TABLE `user` (
+	id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`user_id` VARCHAR(100) NOT NULL,
+	`password` VARCHAR(100) NOT NULL,
+	`nickname` VARCHAR(100) NOT NULL,
+	`created_date` DATETIME NOT NULL,
+	`modified_date` DATETIME NOT NULL
+);
+
+CREATE TABLE `board` (
+	id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(100) NOT NULL,
+	`level` VARCHAR(100) NOT NULL,
+	`count` INT UNSIGNED NOT NULL,
+	`time` INT UNSIGNED NOT NULL,
+	created_date DATETIME NOT NULL,
+	modified_date DATETIME NOT NULL
+);
+
+CREATE TABLE review (
+	id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`nickname` VARCHAR(100) NOT NULL,
+	`score` INT UNSIGNED NOT NULL,
+	`content` TEXT NOT NULL,
+	created_date DATETIME NOT NULL,
+	modified_date DATETIME NOT NULL
+);
+
+CREATE TABLE `like` (
+	id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`user_id` VARCHAR(100) NOT NULL,
+	created_date DATETIME NOT NULL,
+	modified_date DATETIME NOT NULL
+);
+
+
+DESC `user`;
+
+SELECT * FROM `user`;
+
+INSERT INTO `user`
+SET created_date = NOW(),
+modified_date = NOW(),
+`user_id` = '플레이어1',
+`password` = '1234',
+`nickname` = '짱구';
+
+INSERT INTO `user`
+SET created_date = NOW(),
+modified_date = NOW(),
+`user_id` = '플레이어2',
+`password` = '1234',
+`nickname` = '둘리';
+
+INSERT INTO `user`
+SET created_date = NOW(),
+modified_date = NOW(),
+`user_id` = '플레이어3',
+`password` = '1234',
+`nickname` = '코난';
+
+
+INSERT INTO board
+SET created_date = NOW(),
+modified_date = NOW(),
+`title` = '테스트1',
+`level` = '상',
+`count` = 2,
+`time` = 30;
+
+INSERT INTO board
+SET created_date = NOW(),
+modified_date = NOW(),
+`title` = '테스트2',
+`level` = '중',
+`count` = 4,
+`time` = 20;
+
+SELECT * FROM `board`;
+
+INSERT INTO review
+SET created_date = NOW(),
+modified_date = NOW(),
+`nickname` = '짱구',
+`score` = 7,
+`content` = "너무어려워요";
+
+
+SELECT * FROM `review`;
+
+
+

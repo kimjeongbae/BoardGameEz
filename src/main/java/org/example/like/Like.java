@@ -12,5 +12,4 @@ public class Like {
     private int id;
     private int boardId;
     private String userId;
-
 }

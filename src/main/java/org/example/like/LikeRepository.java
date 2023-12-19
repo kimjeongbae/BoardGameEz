@@ -13,7 +13,7 @@ public class LikeRepository {
 
     Board board;
 
-    LikeService (Board board) {
+    LikeRepository (Board board) {
         this.board = board;
     }
 
