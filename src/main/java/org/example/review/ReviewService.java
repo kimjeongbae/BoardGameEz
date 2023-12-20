@@ -21,11 +21,11 @@ public class ReviewService {
         return reviewRepository.reviewFindById(id);
     }
 
-    public int delete(Review review) {
-        return reviewRepository.delete(review);
+    public void delete(Review review) {
+        reviewRepository.delete(review);
     }
 
-    public int update(Review review, String score, String content) {
-        return reviewRepository.update(review,score,content);
+    public void update(Review review, String score, String content) {
+        reviewRepository.update(review,score,content);
     }
 }

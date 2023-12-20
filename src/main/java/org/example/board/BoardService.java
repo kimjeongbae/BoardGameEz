@@ -17,6 +17,9 @@ public class BoardService {
     public List<Board> findByAll() {
         return this.boardRepository.findByAll();
     }
+    public List<BoardDTO> joinMemberFindByAll() {
+        return this.boardRepository.joinMemberFindByAll();
+    }
 
     public void delete(Board board) {
         this.boardRepository.delete(board);

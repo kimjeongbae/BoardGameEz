@@ -13,6 +13,7 @@ public class BoardDTO {
     private int count;
     private int time;
     private int userId;
+    private String nickname;
     private int like_count;
     private String created_date;
 
@@ -23,6 +24,7 @@ public class BoardDTO {
         this.count = (int)row.get("count");
         this.time = (int)row.get("time");
         this.userId = (int)row.get("userId");
+        this.nickname = (String)row.get("nickname");
         this.like_count = (int)row.get("like_count");
         this.created_date = row.get("created_date").toString();
     }

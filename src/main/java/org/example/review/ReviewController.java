@@ -1,6 +1,7 @@
 package org.example.review;
 
 import org.example.board.Board;
+import org.example.board.BoardService;
 import org.example.container.Global;
 import java.util.List;
 
@@ -9,13 +10,13 @@ public class ReviewController {
     ReviewService reviewService;
 
 
-    public ReviewController () {
+    public ReviewController() {
 
         reviewService = new ReviewService();
     }
 
 
-    public void create () {
+    public void create() {
 
         if (Global.getLogineUser() == null) {
             System.out.println("해당 기능은 로그인 후 이용 가능합니다.");
@@ -28,10 +29,10 @@ public class ReviewController {
         System.out.println("======================================================");
 
 
-        Board board = findBoardById(reviewId);
+        Board board = new BoardService().boardFindId(reviewId);
 
         if (board == null) {
-            System.out.println("해당 게시글은 존재 하지 않습니다." );
+            System.out.println("해당 게시글은 존재 하지 않습니다.");
             System.out.println("======================================================");
             return;
         }
@@ -47,11 +48,11 @@ public class ReviewController {
 
         this.reviewService.save(board.getTitle(), score, content);
 
-        System.out.println(reviewId+ "번 리뷰글이 등록 되었습니다.");
+        System.out.println(reviewId + "번 리뷰글이 등록 되었습니다.");
 
     }
 
-    public void delete () {
+    public void delete() {
         if (Global.getLogineUser() == null) {
             System.out.println("해당 기능은 로그인 후 이용 가능합니다.");
             return;
@@ -64,7 +65,7 @@ public class ReviewController {
         Review review = this.reviewService.reviewFindById(removeId);
 
         if (review == null) {
-            System.out.println("해당 리뷰는 존재 하지 않습니다." );
+            System.out.println("해당 리뷰는 존재 하지 않습니다.");
             return;
         }
 
@@ -73,13 +74,13 @@ public class ReviewController {
             return;
         }
 
-        int id = this.reviewService.delete(review);
+        this.reviewService.delete(review);
 
 
-        System.out.println(id + " 번 리뷰가 삭제 되었습니다.");
+        System.out.println(removeId + " 번 리뷰가 삭제 되었습니다.");
     }
 
-    public void update () {
+    public void update() {
         if (Global.getLogineUser() == null) {
             System.out.println("해당 기능은 로그인 후 이용 가능합니다.");
             return;
@@ -112,23 +113,20 @@ public class ReviewController {
         String content = Global.getScanner().nextLine();
         System.out.println("======================================================");
 
-        int id = this.reviewService.update(review, score, content);
+        this.reviewService.update(review, score, content);
 
-        System.out.println(id + " 번 리뷰가 수정 되었습니다.");
+        System.out.println(modifyId + " 번 리뷰가 수정 되었습니다.");
     }
-    public void list () {
-            List<Review> reviewList = this.reviewService.findByAll();
 
-            System.out.println("번호 /보드게임 이름 / 리뷰 점수 /    리뷰 내용    /  작성자 / 등록일");
-            System.out.println("=======================================================================================");
+    public void list() {
+        List<Review> reviewList = this.reviewService.findByAll();
 
-            for (Review review : reviewList) {
-                System.out.printf("%d  /   %s   /   %s   /  %s  /   %s  /   %s    \n", review.getId(), review.getBoardTitle(), review.getScore(), review.getContent(), review.getUserId(), review.getCreated_date());
-            }
+        System.out.println("번호 /보드게임 이름 / 리뷰 점수 /    리뷰 내용    /  작성자 / 등록일");
+        System.out.println("=======================================================================================");
+
+        for (Review review : reviewList) {
+            System.out.printf("%d  /   %s   /   %s   /  %s  /   %s  /   %s    \n", review.getId(), review.getBoardTitle(), review.getScore(), review.getContent(), review.getUserId(), review.getCreated_date());
         }
-    public Board findBoardById(int boardId) {
-        return null;
     }
-
 }
 

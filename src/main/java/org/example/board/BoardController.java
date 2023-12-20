@@ -1,15 +1,20 @@
 package org.example.board;
 
 import org.example.container.Global;
+import org.example.user.User;
+import org.example.user.UserService;
+
 import java.util.List;
 
 public class BoardController {
 
     BoardService boardService;
+    UserService userService;
 
     public BoardController () {
 
         boardService = new BoardService();
+        userService = new UserService();
     }
 
 
@@ -78,14 +83,14 @@ public class BoardController {
     }
 
     public void list () {
-        List<Board> boardList = this.boardService.findByAll();
+        List<BoardDTO> boardList = this.boardService.joinMemberFindByAll();
 
         System.out.println("번호 / 보드게임 이름 / 게임 난이도 / 추천 인원수 / 플레이 타임 / 작성자 / 좋아요 /등록일");
         System.out.println("=======================================================================================");
 
-        for (Board board : boardList) {
-
-            System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %s   /  %s \n", board.getId(), board.getTitle(), board.getLevel(), board.getCount()+" 명" ,board.getTime()+" 분" , board.getUserId(), board.getLike_count() ,board.getCreated_date());
+        for (BoardDTO board : boardList) {
+            User user = this.userService.userFindByUserId(board.getNickname());
+            System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %s   /  %s \n", board.getId(), board.getTitle(), board.getLevel(), board.getCount()+" 명" ,board.getTime()+" 분" ,user.getNickname(), board.getLike_count() ,board.getCreated_date());
         }
     }
 

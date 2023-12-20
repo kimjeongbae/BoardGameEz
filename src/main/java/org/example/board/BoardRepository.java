@@ -21,9 +21,25 @@ public class BoardRepository {
         Global.getDBConnection().delete(sql);
     }
     public void update(Board board, String title, String level, int count, int time) {
-        String sql = String.format("UPDATE board set title='%s', level='%s', count='%d', time='%d' ,where id=%d;", title, level,count,time,board.getId());
+        String sql = String.format("UPDATE board SET title='%s', level='%s', count='%d', time='%d' where id=%d;", title, level,count,time,board.getId());
         Global.getDBConnection().update(sql);
     }
+    public List<BoardDTO> joinMemberFindByAll() {
+        List<BoardDTO> boardLisk = new ArrayList<>();
+        List<Map<String, Object>> rows =  Global.getDBConnection().selectRows("SELECT B.*,U.nickname\n" +
+                "FROM board AS B\n" +
+                "INNER JOIN `user` AS U\n" +
+                "ON B.userId = U.id;\n");
+
+        for (Map<String, Object> row : rows) {
+            BoardDTO board = new BoardDTO(row);
+
+            boardLisk.add(board);
+        }
+
+        return boardLisk;
+    }
+
 
     public List<Board> findByAll() {
         List<Board> boardList = new ArrayList<>();

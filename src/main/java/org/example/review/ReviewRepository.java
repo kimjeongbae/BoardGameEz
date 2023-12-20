@@ -43,15 +43,13 @@ public class ReviewRepository {
     }
 
 
-    public int delete(Review review) {
-
-        return review.getId();
+    public void delete(Review review) {
+        String sql = String.format("DELETE FROM review where id=%d;", review.getId());
+        Global.getDBConnection().delete(sql);
     }
 
-    public int update(Review review, String score, String content) {
-        review.setScore(score);
-        review.setContent(content);
-
-        return review.getId();
+    public void update(Review review, String score, String content) {
+        String sql = String.format("UPDATE review SET score='%s', content='%s' where id=%d;", score, content, review.getId());
+        Global.getDBConnection().update(sql);
     }
 }

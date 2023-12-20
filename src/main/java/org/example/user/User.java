@@ -16,7 +16,7 @@ public class User {
     String nickname;
     String created_date;
 
-    User (Map<String, Object> row) {
+    public User (Map<String, Object> row) {
         this.id = (int)row.get("id");
         this.user_Id = (String)row.get("user_Id");
         this.password = (String)row.get("password");
