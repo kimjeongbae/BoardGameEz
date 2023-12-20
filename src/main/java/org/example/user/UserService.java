@@ -15,11 +15,15 @@ public class UserService {
         return this.userRepository.create(user_id,password,nickname);
     }
 
-
-
     public User userFindByUserId(String userId) {
         return this.userRepository.userFindByUserId(userId);
     }
+
+    public User userFindById (int id) {
+        return this.userRepository.userFindById(id);
+    }
+
+
 
 
     public void login(User checkedUser) {

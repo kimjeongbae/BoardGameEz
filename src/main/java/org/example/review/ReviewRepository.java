@@ -2,6 +2,7 @@ package org.example.review;
 
 
 
+import org.example.board.BoardDTO;
 import org.example.container.Global;
 
 import java.util.ArrayList;
@@ -40,6 +41,20 @@ public class ReviewRepository {
             }
         }
         return null;
+    }
+
+
+    public List<ReviewDTO> joinMemberFindByAll() {
+        List<ReviewDTO> reviewList = new ArrayList<>();
+        List<Map<String, Object>> rows =  Global.getDBConnection().selectRows("SELECT B.*,U.nickname FROM board AS B INNER JOIN `user` AS U ON B.userId = U.id;\n");
+
+        for (Map<String, Object> row : rows) {
+            ReviewDTO review = new ReviewDTO(row);
+
+            reviewList.add(review);
+        }
+
+        return reviewList;
     }
 
 

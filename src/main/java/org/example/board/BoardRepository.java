@@ -24,20 +24,20 @@ public class BoardRepository {
         String sql = String.format("UPDATE board SET title='%s', level='%s', count='%d', time='%d' where id=%d;", title, level,count,time,board.getId());
         Global.getDBConnection().update(sql);
     }
+
+
+//    user id -> 닉네임 ( 게시글 번호 / 보드게임 이름 / 난이도 / 인원수 / 시간 / 닉네임 / 좋아요 / 날짜)
     public List<BoardDTO> joinMemberFindByAll() {
-        List<BoardDTO> boardLisk = new ArrayList<>();
-        List<Map<String, Object>> rows =  Global.getDBConnection().selectRows("SELECT B.*,U.nickname\n" +
-                "FROM board AS B\n" +
-                "INNER JOIN `user` AS U\n" +
-                "ON B.userId = U.id;\n");
+        List<BoardDTO> boardList = new ArrayList<>();
+        List<Map<String, Object>> rows =  Global.getDBConnection().selectRows("SELECT B.*,U.nickname FROM board AS B INNER JOIN `user` AS U ON B.userId = U.id;\n");
 
         for (Map<String, Object> row : rows) {
             BoardDTO board = new BoardDTO(row);
 
-            boardLisk.add(board);
+            boardList.add(board);
         }
 
-        return boardLisk;
+        return boardList;
     }
 
 

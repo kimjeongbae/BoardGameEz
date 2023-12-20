@@ -89,8 +89,9 @@ public class BoardController {
         System.out.println("=======================================================================================");
 
         for (BoardDTO board : boardList) {
-            User user = this.userService.userFindByUserId(board.getNickname());
-            System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %s   /  %s \n", board.getId(), board.getTitle(), board.getLevel(), board.getCount()+" 명" ,board.getTime()+" 분" ,user.getNickname(), board.getLike_count() ,board.getCreated_date());
+            String id = String.valueOf(board.getUserId());
+            User user = this.userService.userFindByUserId(id);
+            System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %d   /  %s \n", board.getId(), board.getTitle(), board.getLevel(), board.getCount()+" 명" ,board.getTime()+" 분" , user.getNickname(), board.getLike_count() ,board.getCreated_date());
         }
     }
 

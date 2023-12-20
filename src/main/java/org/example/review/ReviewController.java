@@ -1,8 +1,11 @@
 package org.example.review;
 
 import org.example.board.Board;
+import org.example.board.BoardDTO;
 import org.example.board.BoardService;
 import org.example.container.Global;
+import org.example.user.User;
+
 import java.util.List;
 
 public class ReviewController {
@@ -119,12 +122,13 @@ public class ReviewController {
     }
 
     public void list() {
-        List<Review> reviewList = this.reviewService.findByAll();
+        List<ReviewDTO> reviewList = this.reviewService.joinMemberFindByAll();
 
         System.out.println("번호 /보드게임 이름 / 리뷰 점수 /    리뷰 내용    /  작성자 / 등록일");
         System.out.println("=======================================================================================");
-
-        for (Review review : reviewList) {
+        for (ReviewDTO review : reviewList) {
+            String id = String.valueOf(review.getUserId());
+            User user = this.reviewService.reviewFindById(review.getNickname());{
             System.out.printf("%d  /   %s   /   %s   /  %s  /   %s  /   %s    \n", review.getId(), review.getBoardTitle(), review.getScore(), review.getContent(), review.getUserId(), review.getCreated_date());
         }
     }

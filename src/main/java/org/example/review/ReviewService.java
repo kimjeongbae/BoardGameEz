@@ -1,5 +1,7 @@
 package org.example.review;
 
+import org.example.board.BoardDTO;
+
 import java.util.List;
 
 public class ReviewService {
@@ -12,6 +14,10 @@ public class ReviewService {
 
     public int save (String boardTitle, String score, String content) {
         return this.reviewRepository.save(boardTitle, score,content);
+    }
+
+    public List<ReviewDTO> joinMemberFindByAll() {
+        return this.reviewRepository.joinMemberFindByAll();
     }
 
     public List<Review> findByAll() {
