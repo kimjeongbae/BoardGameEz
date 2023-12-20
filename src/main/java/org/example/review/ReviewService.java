@@ -12,7 +12,6 @@ public class ReviewService {
 
     public int save (String boardTitle, String score, String content) {
         return this.reviewRepository.save(boardTitle, score,content);
-
     }
 
     public List<Review> findByAll() {

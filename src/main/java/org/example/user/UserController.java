@@ -23,7 +23,6 @@ public class UserController {
         String password;
         String passwordConfirm;
         String nickname;
-        LocalDate now = LocalDate.now();
 
 
         while (true) {
@@ -61,10 +60,14 @@ public class UserController {
         System.out.print("닉네임 : ");
         nickname = Global.getScanner().nextLine().trim();
 
-        String joinedUserId = this.userService.create(user_id,password,nickname);
+        int userId = this.userService.create(user_id,password,nickname);
+        if (userId == -1){
+            System.out.println("회원 가입에 실패 하였습니다.");
+            return;
+        }
 
 
-        System.out.println(joinedUserId + "님 가입을 환영 합니다.");
+        System.out.println(nickname + "님 가입을 환영 합니다.");
         System.out.println("======================================================");
 
 
@@ -85,7 +88,7 @@ public class UserController {
         System.out.printf("비밀번호 : ");
         String password = Global.getScanner().nextLine().trim();
 
-        User user = this.userService.userFindByUserId(userId);
+        User user =  this.userService.userFindByUserId(userId);
         checkedUser = user;
 
 
@@ -99,7 +102,7 @@ public class UserController {
             return;
         }
 
-        this.userService.loing(checkedUser);
+        this.userService.login(checkedUser);
 
         System.out.println(checkedUser.getNickname() + "님 환영합니다.");
         System.out.println("======================================================");

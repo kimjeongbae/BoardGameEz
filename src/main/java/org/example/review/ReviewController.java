@@ -45,9 +45,9 @@ public class ReviewController {
         String content = Global.getScanner().nextLine();
         System.out.println("======================================================");
 
-        int id = this.reviewService.save(board.getTitle(), score, content);
+        this.reviewService.save(board.getTitle(), score, content);
 
-        System.out.println(id+ "번 리뷰글이 등록 되었습니다.");
+        System.out.println(reviewId+ "번 리뷰글이 등록 되었습니다.");
 
     }
 
@@ -68,7 +68,7 @@ public class ReviewController {
             return;
         }
 
-        if (review.getAuthor() != Global.getLogineUser().getNickname()) {
+        if (review.getUserId() != Global.getLogineUser().getId()) {
             System.out.println("해당 작성자만 삭제가 가능합니다.");
             return;
         }
@@ -97,7 +97,7 @@ public class ReviewController {
             return;
         }
 
-        if (review.getAuthor() != Global.getLogineUser().getNickname()) {
+        if (review.getUserId() != Global.getLogineUser().getId()) {
             System.out.println("해당 작성자만 수정 가능합니다.");
             return;
         }
@@ -123,7 +123,7 @@ public class ReviewController {
             System.out.println("=======================================================================================");
 
             for (Review review : reviewList) {
-                System.out.printf("%d  /   %s   /   %s   /  %s  /   %s  /   %s    \n", review.getId(), review.getBoardTitle(), review.getScore(), review.getContent(), review.getAuthor(), review.getCreated_date());
+                System.out.printf("%d  /   %s   /   %s   /  %s  /   %s  /   %s    \n", review.getId(), review.getBoardTitle(), review.getScore(), review.getContent(), review.getUserId(), review.getCreated_date());
             }
         }
     public Board findBoardById(int boardId) {

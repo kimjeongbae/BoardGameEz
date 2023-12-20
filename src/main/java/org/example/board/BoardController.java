@@ -66,7 +66,7 @@ public class BoardController {
             return;
         }
 
-        if (board.getAuthor() != Global.getLogineUser().getNickname()) {
+        if (board.getUserId() != Global.getLogineUser().getId()) {
             System.out.println("해당 작성자만 삭제가 가능합니다.");
             return;
         }
@@ -85,7 +85,7 @@ public class BoardController {
 
         for (Board board : boardList) {
 
-            System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %s   /  %s \n", board.getId(), board.getTitle(), board.getLevel(), board.getCount()+" 명" ,board.getTime()+" 분" , board.getAuthor(), board.getLike_count() ,board.getCreated_date());
+            System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %s   /  %s \n", board.getId(), board.getTitle(), board.getLevel(), board.getCount()+" 명" ,board.getTime()+" 분" , board.getUserId(), board.getLike_count() ,board.getCreated_date());
         }
     }
 
@@ -108,7 +108,7 @@ public class BoardController {
             return;
         }
 
-        if (board.getAuthor() != Global.getLogineUser().getNickname()) {
+        if (board.getUserId() != Global.getLogineUser().getId()) {
             System.out.println("해당 작성자만 수정 가능합니다.");
             return;
         }

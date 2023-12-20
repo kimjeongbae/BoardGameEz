@@ -3,21 +3,26 @@ package org.example.board;
 import org.example.container.Global;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
 public class BoardRepository {
 
-
-
     public int save (String title, String level, int count, int time) {
-      String sql = String.format("INSERT INTO board SET title = '%s' , level = '%s' , count = '%d' , time = '%d', user_id = '%d',like_count = '%d' , created_date=now();" , title,level,count,time, Global.getLogineUser().getNickname(),0);
+      String sql = String.format("INSERT INTO board SET title = '%s' , level = '%s' , count = '%d' , time = '%d', userId = '%s',like_count = '%d' , created_date=now();" , title,level,count,time, Global.getLogineUser().getId(),0);
 
       int id = Global.getDBConnection().insert(sql);
 
       return id;
 
+    }
+    public void delete(Board board) {
+        String sql = String.format("DELETE FROM board where id=%d;", board.getId());
+        Global.getDBConnection().delete(sql);
+    }
+    public void update(Board board, String title, String level, int count, int time) {
+        String sql = String.format("UPDATE board set title='%s', level='%s', count='%d', time='%d' ,where id=%d;", title, level,count,time,board.getId());
+        Global.getDBConnection().update(sql);
     }
 
     public List<Board> findByAll() {
@@ -34,11 +39,6 @@ public class BoardRepository {
         return boardList;
     }
 
-    public void delete(Board board) {
-        String sql = String.format("DELETE FROM article where id=%d;", board.getId());
-        Global.getDBConnection().delete(sql);
-    }
-
     public Board boardFindId(int id) {
         List<Board> boardList = this.findByAll();
         for (int i = 0; i < boardList.size(); i++) {
@@ -49,10 +49,7 @@ public class BoardRepository {
         return null;
     }
 
-    public void update(Board board, String title, String level, int count, int time) {
-        String sql = String.format("UPDATE board set title='%s', level='%s', count='%d', time='%d' ,where id=%d;", title, level,count,time,board.getId());
-        Global.getDBConnection().update(sql);
-    }
+
 
     public void likeCountUp(Board board) {
         board.setLike_count(board.getLike_count() + 1);

@@ -1,30 +1,39 @@
 package org.example.review;
 
-import lombok.AllArgsConstructor;
-import org.example.board.Board;
+
+
 import org.example.container.Global;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ReviewRepository {
-    List<Review> reviewList = new ArrayList<>();
-    int lastReviewId = 1;
-
 
     public int save (String boardTitle, String score, String content) {
-        Review review = new Review(lastReviewId, boardTitle, score, content, Global.getLogineUser().getNickname() , Global.nowDateTime());
-        reviewList.add(review);
 
-        lastReviewId++;
+        String sql = String.format("INSERT INTO review SET boardTitle = '%s' , score = '%s' , content = '%s' , userId = '%d', created_date=now();" ,boardTitle,score,content,Global.getLogineUser().getId());
 
-        return review.getId();
+        int id = Global.getDBConnection().insert(sql);
+
+        return id;
     }
 
     public List<Review> findByAll() {
+        List<Review> reviewList = new ArrayList<>();
+
+        List<Map<String, Object>> rows =  Global.getDBConnection().selectRows("select * from review");
+
+        for (Map<String, Object> row : rows) {
+            Review review = new Review(row);
+
+            reviewList.add(review);
+    }
         return reviewList;
     }
+
     public Review reviewFindById(int id){
+        List<Review> reviewList = this.findByAll();
         for (int i = 0; i < reviewList.size(); i++) {
             if (id == reviewList.get(i).getId()) {
                 return reviewList.get(i);
@@ -33,8 +42,8 @@ public class ReviewRepository {
         return null;
     }
 
+
     public int delete(Review review) {
-        reviewList.remove(review);
 
         return review.getId();
     }

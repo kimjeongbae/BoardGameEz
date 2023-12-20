@@ -2,26 +2,33 @@ package org.example.user;
 
 import org.example.container.Global;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class UserRepository {
-    List<User> userList = new ArrayList<>();
-    int lastUserId = 1;
 
+    public int create(String user_id,String password, String nickname) {
 
+        String sql = String.format("INSERT INTO `user` SET user_id='%s', password='%s', nickname='%s', created_date=now(); ",user_id,password,nickname );
 
+        int id =Global.getDBConnection().insert(sql);
 
-    public UserRepository () {
-        User user1 = new User(1, "user1", "1234", "둘리", LocalDate.now().toString());
-        userList.add(user1);
-        User user2 = new User(2, "user2", "1234", "짱구", LocalDate.now().toString());
-        userList.add(user2);
-        User user3 = new User(3, "user3", "1234", "코난", LocalDate.now().toString());
-        userList.add(user3);
+        return id;
     }
+
     public User userFindByUserId(String userId) {
+        List<User> userList = new ArrayList<>();
+
+        String sql = "SELECT * FROM `user`;";
+
+        List<Map<String, Object>> rows = Global.getDBConnection().selectRows(sql);
+
+        for (Map<String, Object> row : rows) {
+            User user = new User(row);
+            userList.add(user);
+        }
+
         for(User user :userList) {
             if (userId.equals(user.user_Id)) {
                 return user;
@@ -30,11 +37,7 @@ public class UserRepository {
         return null;
     }
 
-    public String create(String user_id,String password, String nickname) {
-        User user = new User(lastUserId, user_id, password, nickname, Global.nowDateTime());
-        userList.add(user);
-        lastUserId++;
 
-        return user.getNickname();
-    }
-}
+
+
+ }
