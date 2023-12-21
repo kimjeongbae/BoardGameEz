@@ -167,15 +167,10 @@ ON B.userId = U.id
 WHERE `title` LIKE '젠%';
 
 
+count(like_count,userId)
 
-
-
-
+UPDATE `board` SET like_count =like_count +1 WHERE id =2;
+UPDATE `board` SET like_count =like_count -1 WHERE id =2;
 SELECT * FROM `board`;
+
 SELECT * FROM `review`;
-
-
-
-
-
-
