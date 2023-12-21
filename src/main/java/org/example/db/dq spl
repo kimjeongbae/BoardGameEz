@@ -11,7 +11,7 @@ CREATE TABLE `user` (
 	`user_Id` VARCHAR(100) NOT NULL,
 	`password` VARCHAR(100) NOT NULL,
 	`nickname` VARCHAR(100) NOT NULL,
-	`created_date` DATETIME NOT NULL
+	`created_date` DATE NOT NULL
 );
 
 CREATE TABLE `board` (
@@ -22,7 +22,7 @@ CREATE TABLE `board` (
 	`time` INT UNSIGNED NOT NULL,
 	`userId` int NOT NULL,
 	`like_count` INT UNSIGNED NOT NULL,
-	created_date DATETIME NOT NULL
+	created_date DATE NOT NULL
 );
 
 CREATE TABLE review (
@@ -31,7 +31,7 @@ CREATE TABLE review (
 	`score` VARCHAR(100) NOT NULL,
 	`content` TEXT NOT NULL,
 	`userId` int NOT NULL,
-	created_date DATETIME NOT NULL
+	created_date DATE NOT NULL
 );
 
 CREATE TABLE `like` (
@@ -67,7 +67,7 @@ INSERT INTO `user`
 SET `user_Id` = 'user4',
 `password` = '1234',
 `nickname` = '루피',
-created_date = NOW();
+created_date =NOW();
 
 INSERT INTO `user`
 SET `user_Id` = 'user5',
@@ -119,7 +119,7 @@ SET `title` = '할리갈리',
 `time` = 15,
 `userId` = 5,
 `like_count` = 0,
-created_date = NOW();
+created_date =NOW();
 
 INSERT INTO board
 SET `title` = '브루마블',
@@ -161,49 +161,49 @@ SET `boardTitle` = '스플랜더',
 `score` = 10,
 `content` = "2명으로 해도 재미있네요",
 `userId` = 1,
-created_date = NOW();
+created_date =  NOW();
 
 INSERT INTO review
 SET `boardTitle` = '브루마블',
 `score` = 9,
 `content` = "명불 허전",
 `userId` = 1,
-created_date = NOW();
+created_date =  NOW();
 
 INSERT INTO review
 SET `boardTitle` = '브루마블',
 `score` = 7,
 `content` = "조금 아쉽네요",
 `userId` = 3,
-created_date = NOW();
+created_date =  NOW();
 
 INSERT INTO review
 SET `boardTitle` = '브루마블',
 `score` = 7,
 `content` = "조금 아쉽네요",
 `userId` = 3,
-created_date = NOW();
+created_date =  NOW();
 
 INSERT INTO review
 SET `boardTitle` = '할리갈리',
 `score` = 8,
 `content` = "손맛이 있네요",
 `userId` = 5,
-created_date = NOW();
+created_date =  NOW();
 
 INSERT INTO review
 SET `boardTitle` = '다빈치코드',
 `score` = 9,
 `content` = "아주 재밌습니다",
 `userId` = 2,
-created_date = NOW();
+created_date =  NOW();
 
 INSERT INTO review
 SET `boardTitle` = '루미큐브',
 `score` = 7,
 `content` = "머리 조금 써야하네요",
 `userId` = 5,
-created_date = NOW();
+created_date =  NOW();
 
 SELECT B.*,U.nickname
 FROM board AS B
@@ -226,7 +226,7 @@ SELECT B.*,U.nickname
 FROM `board` AS B
 INNER JOIN `user` AS U
 ON B.userId = U.id
-WHERE U.nickname LIKE '짱%';
+WHERE U.nickname LIKE '조%';
 
 SELECT B.*,U.nickname
 FROM `board` AS B
@@ -234,11 +234,19 @@ INNER JOIN `user` AS U
 ON B.userId = U.id
 WHERE `title` LIKE '브%';
 
+SELECT *
+FROM `board` AS B
+INNER JOIN `user` AS U
+ON B.userId = U.id
+SET B.like_count +1
+WHERE B.like_count;
 
-count(like_count,userId)
+UPDATE `board` AS B
+SET like_count =like_count +1
+WHERE B.userId=1;
 
-UPDATE `board` SET like_count =like_count +1 WHERE id =2;
-UPDATE `board` SET like_count =like_count -1 WHERE id =2;
+
+UPDATE `board` SET like_count =like_count -1 WHERE id ;
 
 SELECT * FROM `board`;
 
