@@ -37,7 +37,7 @@ CREATE TABLE review (
 CREATE TABLE `like` (
 	id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`boardId` INT UNSIGNED NOT NULL,
-	`userId` VARCHAR(100) NOT NULL
+	`user_nickname` VARCHAR(100) NOT NULL
 );
 
 
@@ -179,9 +179,9 @@ created_date =  NOW();
 
 INSERT INTO review
 SET `boardTitle` = '브루마블',
-`score` = 7,
-`content` = "조금 아쉽네요",
-`userId` = 3,
+`score` = 8,
+`content` = "여러명이서 하기 좋아요",
+`userId` = 5,
 created_date =  NOW();
 
 INSERT INTO review
@@ -234,20 +234,12 @@ INNER JOIN `user` AS U
 ON B.userId = U.id
 WHERE `title` LIKE '브%';
 
-SELECT *
-FROM `board` AS B
-INNER JOIN `user` AS U
-ON B.userId = U.id
-SET B.like_count +1
-WHERE B.like_count;
+SELECT COUNT(*) FROM `like` WHERE boardId = %d AND user_nickname = '%s';
 
-UPDATE `board` AS B
-SET like_count =like_count +1
-WHERE B.userId=1;
+UPDATE board SET like_count = GREATEST(like_count - 1, 0) WHERE id = %d
 
+DELETE FROM `like` WHERE boardId = %d AND user_nickname = '%s
 
-UPDATE `board` SET like_count =like_count -1 WHERE id ;
 
 SELECT * FROM `board`;
-
 SELECT * FROM `review`;
