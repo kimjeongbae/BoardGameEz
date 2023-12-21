@@ -1,12 +1,19 @@
 package org.example.board;
 
 import org.example.container.Global;
+import org.example.like.Like;
+
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class BoardRepository {
+
+    List<Like> boadList = new ArrayList<>();
+
+    int lastLikeId = 1;
 
     public int save (String title, String level, int count, int time) {
       String sql = String.format("INSERT INTO board SET title = '%s' , level = '%s' , count = '%d' , time = '%d', userId = '%s',like_count = '%d' , created_date=now();" , title,level,count,time, Global.getLogineUser().getId(),0);
@@ -64,6 +71,39 @@ public class BoardRepository {
         }
         return null;
     }
+    public List<BoardDTO> searchByBoardUser(String searchKeyword) {
+        List<BoardDTO> boardList = new ArrayList<>();
+
+        String sql = String.format(
+                "SELECT B.*, U.nickname FROM `board` AS B INNER JOIN `user` AS U ON B.userId = U.id WHERE U.nickname LIKE '%s%%';",
+                searchKeyword);
+
+        List<Map<String, Object>> rows = Global.getDBConnection().selectRows(sql);
+
+        for (Map<String, Object> row : rows) {
+            BoardDTO board = new BoardDTO(row);
+            boardList.add(board);
+        }
+
+        return boardList;
+    }
+
+    public List<BoardDTO> searchByBoardGame(String searchKeyword) {
+        List<BoardDTO> boardList = new ArrayList<>();
+
+        String sql = String.format(
+                "SELECT B.*, U.nickname FROM `board` AS B INNER JOIN `user` AS U ON B.userId = U.id WHERE `title` LIKE '%s%%';",
+                searchKeyword);
+
+        List<Map<String, Object>> rows = Global.getDBConnection().selectRows(sql);
+
+        for (Map<String, Object> row : rows) {
+            BoardDTO board = new BoardDTO(row);
+            boardList.add(board);
+        }
+
+        return boardList;
+    }
 
 
 
@@ -74,4 +114,5 @@ public class BoardRepository {
     public void likeCountDown(Board board) {
         board.setLike_count(board.getLike_count() - 1);
     }
+
 }

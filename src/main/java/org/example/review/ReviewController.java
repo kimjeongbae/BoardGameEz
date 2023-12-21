@@ -51,9 +51,9 @@ public class ReviewController {
         String content = Global.getScanner().nextLine();
         System.out.println("======================================================");
 
-        this.reviewService.save(board.getTitle(), score, content);
+        int id = this.reviewService.save(board.getTitle(), score, content);
 
-        System.out.println(reviewId + "번 리뷰글이 등록 되었습니다.");
+        System.out.println(id+ "번 리뷰글이 등록 되었습니다.");
 
     }
 
@@ -137,9 +137,10 @@ public class ReviewController {
     }
 
     public void searchByNickname() {
-        System.out.println("닉네임으로 검색할 키워드를 입력하세요.");
-        System.out.print("검색어: ");
+        System.out.println("검색 하실 작성자 닉네임을 한글자 이상 입력하세요. ");
+        System.out.print("검색 : ");
         String searchKeyword = Global.getScanner().nextLine().trim();
+        System.out.println("=======================================================================================");
 
         List<ReviewDTO> searchResult = this.reviewService.searchByNickname(searchKeyword);
 
@@ -153,7 +154,33 @@ public class ReviewController {
                 System.out.printf("%d  /   %s   /   %s   /  %s  /   %s  /   %s    \n",
                         review.getId(), review.getBoardTitle(), review.getScore(),
                         review.getContent(), review.getNickname(), review.getCreated_date());
+
             }
+            System.out.println("======================= 작성자 검색이 완료 되었습니다. =================================");
+        }
+    }
+
+    public void searchByTitlename() {
+        System.out.println("검색 하실 보드게임 이름을 한글자 이상 입력하세요. ");
+        System.out.print("검색 : ");
+        String searchKeyword = Global.getScanner().nextLine().trim();
+        System.out.println("=======================================================================================");
+
+        List<ReviewDTO> searchResult = this.reviewService.searchByTitlename(searchKeyword);
+
+        if (searchResult.isEmpty()) {
+            System.out.println("검색 결과가 없습니다.");
+        } else {
+            System.out.println("번호 / 보드게임 이름 / 리뷰 점수 / 리뷰 내용 / 작성자 / 등록일");
+            System.out.println("=======================================================================================");
+
+            for (ReviewDTO review : searchResult) {
+                System.out.printf("%d  /   %s   /   %s   /  %s  /   %s  /   %s    \n",
+                        review.getId(), review.getBoardTitle(), review.getScore(),
+                        review.getContent(), review.getNickname(), review.getCreated_date());
+
+            }
+            System.out.println("====================== 보드게임 검색이 완료 되었습니다. ================================");
         }
     }
 

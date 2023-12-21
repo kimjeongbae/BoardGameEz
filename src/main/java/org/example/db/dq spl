@@ -4,6 +4,7 @@ USE bproj;
 DROP TABLE `user`;
 DROP TABLE `board`;
 DROP TABLE `review`;
+DROP TABLE `like`;
 
 CREATE TABLE `user` (
 	id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -62,6 +63,18 @@ SET `user_Id` = 'user3',
 `nickname` = '코난',
 created_date = NOW();
 
+INSERT INTO `user`
+SET `user_Id` = 'user4',
+`password` = '1234',
+`nickname` = '루피',
+created_date = NOW();
+
+INSERT INTO `user`
+SET `user_Id` = 'user5',
+`password` = '1234',
+`nickname` = '조로',
+created_date = NOW();
+
 
 INSERT INTO board
 SET `title` = '젠가',
@@ -83,10 +96,37 @@ created_date = NOW();
 
 INSERT INTO board
 SET `title` = '스플랜더',
-`level` = '하',
+`level` = '중',
 `count` = 4,
 `time` = 30,
 `userId` = 3,
+`like_count` = 0,
+created_date = NOW();
+
+INSERT INTO board
+SET `title` = '다빈치코드',
+`level` = '하',
+`count` = 2,
+`time` = 15,
+`userId` = 2,
+`like_count` = 0,
+created_date = NOW();
+
+INSERT INTO board
+SET `title` = '할리갈리',
+`level` = '중',
+`count` = 2,
+`time` = 15,
+`userId` = 5,
+`like_count` = 0,
+created_date = NOW();
+
+INSERT INTO board
+SET `title` = '브루마블',
+`level` = '중',
+`count` = 4,
+`time` = 30,
+`userId` = 4,
 `like_count` = 0,
 created_date = NOW();
 
@@ -137,6 +177,34 @@ SET `boardTitle` = '브루마블',
 `userId` = 3,
 created_date = NOW();
 
+INSERT INTO review
+SET `boardTitle` = '브루마블',
+`score` = 7,
+`content` = "조금 아쉽네요",
+`userId` = 3,
+created_date = NOW();
+
+INSERT INTO review
+SET `boardTitle` = '할리갈리',
+`score` = 8,
+`content` = "손맛이 있네요",
+`userId` = 5,
+created_date = NOW();
+
+INSERT INTO review
+SET `boardTitle` = '다빈치코드',
+`score` = 9,
+`content` = "아주 재밌습니다",
+`userId` = 2,
+created_date = NOW();
+
+INSERT INTO review
+SET `boardTitle` = '루미큐브',
+`score` = 7,
+`content` = "머리 조금 써야하네요",
+`userId` = 5,
+created_date = NOW();
+
 SELECT B.*,U.nickname
 FROM board AS B
 INNER JOIN `user` AS U
@@ -164,13 +232,14 @@ SELECT B.*,U.nickname
 FROM `board` AS B
 INNER JOIN `user` AS U
 ON B.userId = U.id
-WHERE `title` LIKE '젠%';
+WHERE `title` LIKE '브%';
 
 
 count(like_count,userId)
 
 UPDATE `board` SET like_count =like_count +1 WHERE id =2;
 UPDATE `board` SET like_count =like_count -1 WHERE id =2;
+
 SELECT * FROM `board`;
 
 SELECT * FROM `review`;

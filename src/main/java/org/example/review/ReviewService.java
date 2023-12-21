@@ -1,7 +1,5 @@
 package org.example.review;
 
-import org.example.board.BoardDTO;
-
 import java.util.List;
 
 public class ReviewService {
@@ -33,5 +31,13 @@ public class ReviewService {
 
     public void update(Review review, String score, String content) {
         reviewRepository.update(review,score,content);
+    }
+
+    public List<ReviewDTO> searchByNickname (String searchKeyword) {
+       return this.reviewRepository.searchByNickname(searchKeyword);
+    }
+
+    public List<ReviewDTO> searchByTitlename (String searchKeyword) {
+        return this.reviewRepository.searchByTitlename(searchKeyword);
     }
 }

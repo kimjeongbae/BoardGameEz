@@ -74,6 +74,16 @@ public class App {
                     System.out.println("키워드를 입력하세요. | 게시판 검색 / 리뷰 검색 |");
                     System.out.println("======================================================");
                     break;
+                case "게시판 검색":
+                    System.out.println("게시판 검색 입니다, 키워드를 선택해주세요.");
+                    System.out.println("[보드게임] 또는 [게시글 작성자] 입력하세요.");
+                    System.out.println("======================================================");
+                    break;
+                case "리뷰 검색":
+                    System.out.println("리뷰 검색 입니다, 키워드를 선택해주세요.");
+                    System.out.println("[보드게임 이름] 또는 [리뷰 작성자]를 입력하세요.");
+                    System.out.println("======================================================");
+                    break;
                 case "게시글 작성":
                     boardController.create();
                     break;
@@ -98,12 +108,12 @@ public class App {
                 case "리뷰 목록":
                     reviewController.list();
                     break;
-                case "좋아요":
-                    likeController.like_up();
-                    break;
-                case "좋아요 취소":
-                    likeController.like_down();
-                    break;
+//                case "좋아요":
+//                    boardController.likeCountUp();
+//                    break;
+//                case "좋아요 취소":
+//                    boardController.likeCountDown();
+//                    break;
                 case "회원가입":
                     userController.join();
                     break;
@@ -113,15 +123,17 @@ public class App {
                 case "로그아웃":
                     userController.logout();
                     break;
-                case "게시판 검색":
-                    System.out.println("게시판 검색 입니다.");
-                    System.out.println("보드게임 이름 또는 작성자를 입력하세요.");
-                    System.out.println("======================================================");
+                case "리뷰 작성자":
+                    reviewController.searchByNickname();
                     break;
-                case "리뷰 검색":
-                    System.out.println("리뷰 검색 입니다.");
-                    System.out.println("보드게임 이름 또는 작성자를 입력하세요.");
-                    System.out.println("======================================================");
+                case "보드게임 이름":
+                    reviewController.searchByTitlename();
+                    break;
+                case "게시글 작성자":
+                    boardController.searchByBoardUser();
+                    break;
+                case "보드게임":
+                    boardController.searchByBoardGame();
                     break;
             }
         }

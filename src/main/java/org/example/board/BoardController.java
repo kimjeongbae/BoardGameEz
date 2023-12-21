@@ -1,6 +1,9 @@
 package org.example.board;
 
 import org.example.container.Global;
+import org.example.like.Like;
+import org.example.like.LikeService;
+import org.example.review.ReviewDTO;
 import org.example.user.User;
 import org.example.user.UserService;
 
@@ -145,7 +148,118 @@ public class BoardController {
         System.out.println(board.getId() + " 번 게시글이 수정 되었습니다.");
     }
 
+    public void searchByBoardUser() {
+        System.out.println("검색 하실 작성자 닉네임을 한글자 이상 입력하세요. ");
+        System.out.print("검색 : ");
+        String searchKeyword = Global.getScanner().nextLine().trim();
+        System.out.println("=======================================================================================");
 
+        List<BoardDTO> searchResult = this.boardService.searchByBoardUser(searchKeyword);
+
+        if (searchResult.isEmpty()) {
+            System.out.println("검색 결과가 없습니다.");
+        } else {
+            System.out.println("번호 / 보드게임 이름 / 게임 난이도 / 추천 인원수 / 플레이 타임 / 작성자 / 좋아요 /등록일");
+            System.out.println("=======================================================================================");
+
+            for (BoardDTO board : searchResult) {
+                System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %d   /  %s \n",
+                        board.getId(), board.getTitle(), board.getLevel(), board.getCount() + " 명", board.getTime() + " 분",
+                        board.getNickname(), board.getLike_count(), board.getCreated_date());
+
+            }
+            System.out.println("======================= 작성자 검색이 완료 되었습니다. =================================");
+        }
+    }
+    public void searchByBoardGame() {
+        System.out.println("검색 하실 보드게임 을 한글자 이상 입력하세요. ");
+        System.out.print("검색 : ");
+        String searchKeyword = Global.getScanner().nextLine().trim();
+        System.out.println("=======================================================================================");
+
+        List<BoardDTO> searchResult = this.boardService.searchByBoardGame(searchKeyword);
+
+        if (searchResult.isEmpty()) {
+            System.out.println("검색 결과가 없습니다.");
+        } else {
+            System.out.println("번호 / 보드게임 이름 / 게임 난이도 / 추천 인원수 / 플레이 타임 / 작성자 / 좋아요 /등록일");
+            System.out.println("=======================================================================================");
+
+            for (BoardDTO board : searchResult) {
+                System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %d   /  %s \n",
+                        board.getId(), board.getTitle(), board.getLevel(), board.getCount() + " 명", board.getTime() + " 분",
+                        board.getNickname(), board.getLike_count(), board.getCreated_date());
+
+            }
+            System.out.println("======================= 보드게임 검색이 완료 되었습니다. =================================");
+        }
+    }
+
+
+//    public void likeCountUp () {
+//        if (Global.getLogineUser() == null) {
+//            System.out.println("해당 기능은 로그인 후 이용 가능합니다.");
+//            return;
+//        }
+//
+//        System.out.println("좋아요 누를  게시글 번호를 입력하세요.");
+//        System.out.print("게시글 번호 : ");
+//        int boardId = Integer.parseInt(Global.getScanner().nextLine().trim());
+//        System.out.println("======================================================");
+//
+//        Board board = boardService.boardFindId(boardId);
+//
+//        if (board == null) {
+//            System.out.println("해당 게시글은 존재 하지 않습니다.");
+//            System.out.println("======================================================");
+//            return;
+//        }
+//
+//        if (boardService.alreadyLiked(boardId)){
+//            System.out.println("해당 게시글은 이미 [좋아요] 누르셨습니다.");
+//            System.out.println("======================================================");
+//        } else {
+//            int id = boardService.SaveLike(boardId);
+//            if (id > 0) {
+//                Board likeBoard = boardService.boardFindId(boardId);
+//                this.boardService.likeCountUp(likeBoard);
+//            }
+//            System.out.println(boardId + "번 게시글을 [좋아요] 누르셨습니다.");
+//            System.out.println("======================================================");
+//        }
+//
+//    }
+//
+//    public void likeCountDown () {
+//        if (Global.getLogineUser() == null) {
+//            System.out.println("해당 기능은 로그인 후 이용 가능합니다.");
+//            return;
+//        }
+//        System.out.println("좋아요 취소할 게시글 번호를 입력하세요.");
+//        System.out.print("게시글 번호 : ");
+//        int boardId = Integer.parseInt(Global.getScanner().nextLine().trim());
+//        System.out.println("======================================================");
+//
+//        Board board = boardService.boardFindId(boardId);
+//
+//        if (board == null) {
+//            System.out.println("해당 게시글은 존재 하지 않습니다.");
+//            System.out.println("======================================================");
+//            return;
+//        }
+//        if (!boardService.alreadyLiked(boardId)) {
+//            System.out.println("해당 게시글은 [좋아요] 가 없습니다.");
+//            System.out.println("======================================================");
+//        } else {
+//            this.boardService.removeLike(boardId);
+//
+//            Board likeBoard = boardService.boardFindId(boardId);
+//            this.boardService.likeCountDown(likeBoard);
+//
+//            System.out.println(boardId + "번 게시글에 [좋아요 취소]를 누르셨습니다.");
+//            System.out.println("======================================================");
+//        }
+//    }
 }
 
 

@@ -1,6 +1,8 @@
 package org.example.board;
 
 
+import org.example.review.ReviewDTO;
+
 import java.util.List;
 
 public class BoardService {
@@ -33,6 +35,13 @@ public class BoardService {
         this.boardRepository.update(board, title, level, count, time);
     }
 
+    public List<BoardDTO> searchByBoardUser (String searchKeyword) {
+        return this.boardRepository.searchByBoardUser(searchKeyword);
+    }
+    public List<BoardDTO> searchByBoardGame (String searchKeyword) {
+        return this.boardRepository.searchByBoardGame(searchKeyword);
+    }
+
     public void likeCountUp(Board board) {
         this.boardRepository.likeCountUp(board);
     }
@@ -40,4 +49,8 @@ public class BoardService {
     public void likeCountDown(Board board) {
         this.boardRepository.likeCountDown(board);
     }
+
+
 }
+
+

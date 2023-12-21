@@ -16,6 +16,7 @@ public class BoardDTO {
     private String nickname;
     private int like_count;
     private String created_date;
+    private String searchKeyword;
 
     BoardDTO (Map<String, Object> row) {
         this.id = (int)row.get("id");
@@ -27,5 +28,6 @@ public class BoardDTO {
         this.nickname = (String)row.get("nickname");
         this.like_count = (int)row.get("like_count");
         this.created_date = row.get("created_date").toString();
+        this.searchKeyword = (String)row.get("searchKeyword");
     }
 }
