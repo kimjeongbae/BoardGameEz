@@ -89,9 +89,9 @@ public class BoardController {
         System.out.println("=======================================================================================");
 
         for (BoardDTO board : boardList) {
-            String id = String.valueOf(board.getUserId());
-            User user = this.userService.userFindByUserId(id);
-            System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %d   /  %s \n", board.getId(), board.getTitle(), board.getLevel(), board.getCount()+" 명" ,board.getTime()+" 분" , user.getNickname(), board.getLike_count() ,board.getCreated_date());
+            System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %d   /  %s \n",
+                    board.getId(), board.getTitle(), board.getLevel(), board.getCount() + " 명", board.getTime() + " 분",
+                    board.getNickname(), board.getLike_count(), board.getCreated_date());
         }
     }
 
@@ -144,6 +144,7 @@ public class BoardController {
 
         System.out.println(board.getId() + " 번 게시글이 수정 되었습니다.");
     }
+
 
 }
 

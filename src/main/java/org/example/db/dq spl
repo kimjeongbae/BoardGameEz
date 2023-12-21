@@ -116,16 +116,66 @@ SET `boardTitle` = '스플랜더',
 `userId` = 3,
 created_date = NOW();
 
+INSERT INTO review
+SET `boardTitle` = '스플랜더',
+`score` = 10,
+`content` = "2명으로 해도 재미있네요",
+`userId` = 1,
+created_date = NOW();
+
+INSERT INTO review
+SET `boardTitle` = '브루마블',
+`score` = 9,
+`content` = "명불 허전",
+`userId` = 1,
+created_date = NOW();
+
+INSERT INTO review
+SET `boardTitle` = '브루마블',
+`score` = 7,
+`content` = "조금 아쉽네요",
+`userId` = 3,
+created_date = NOW();
+
 SELECT B.*,U.nickname
 FROM board AS B
 INNER JOIN `user` AS U
 ON B.userId = U.id;
 
+SELECT R.*,U.nickname
+FROM review AS R
+INNER JOIN `user` AS U
+ON R.userId = U.id
+WHERE U.nickname LIKE '짱%';
+
+SELECT R.*,U.nickname
+FROM review AS R
+INNER JOIN `user` AS U
+ON R.userId = U.id
+WHERE `boardTitle` LIKE '루%';
+
+SELECT B.*,U.nickname
+FROM `board` AS B
+INNER JOIN `user` AS U
+ON B.userId = U.id
+WHERE U.nickname LIKE '짱%';
+
+SELECT B.*,U.nickname
+FROM `board` AS B
+INNER JOIN `user` AS U
+ON B.userId = U.id
+WHERE `title` LIKE '젠%';
 
 
 
 
+
+
+SELECT * FROM `board`;
 SELECT * FROM `review`;
+
+
+
 
 
 

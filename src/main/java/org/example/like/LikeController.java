@@ -44,7 +44,7 @@ public class LikeController {
                 Board likeBoard = boardService.boardFindId(boardId);
                 this.boardService.likeCountUp(likeBoard);
             }
-            System.out.println(id + "번 게시글을 [좋아요] 누르셨습니다.");
+            System.out.println(boardId + "번 게시글을 [좋아요] 누르셨습니다.");
             System.out.println("======================================================");
         }
 

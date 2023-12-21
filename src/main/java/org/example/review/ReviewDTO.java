@@ -14,6 +14,7 @@ public class ReviewDTO {
     private int userId;
     private String nickname;
     private String created_date;
+    private String searchKeyword;
 
     ReviewDTO (Map<String, Object> row) {
         this.id = (int)row.get("id");
@@ -23,5 +24,6 @@ public class ReviewDTO {
         this.userId = (int)row.get("userId");
         this.nickname = (String) row.get("nickname");
         this.created_date = row.get("created_date").toString();
+        this.searchKeyword = (String) row.get("searchKeyword");
     }
 }

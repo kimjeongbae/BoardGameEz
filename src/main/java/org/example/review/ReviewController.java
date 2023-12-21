@@ -1,21 +1,23 @@
 package org.example.review;
 
 import org.example.board.Board;
-import org.example.board.BoardDTO;
 import org.example.board.BoardService;
 import org.example.container.Global;
 import org.example.user.User;
+import org.example.user.UserService;
 
 import java.util.List;
 
 public class ReviewController {
 
     ReviewService reviewService;
+    UserService userService;
 
 
     public ReviewController() {
 
         reviewService = new ReviewService();
+        userService = new UserService();
     }
 
 
@@ -127,10 +129,33 @@ public class ReviewController {
         System.out.println("번호 /보드게임 이름 / 리뷰 점수 /    리뷰 내용    /  작성자 / 등록일");
         System.out.println("=======================================================================================");
         for (ReviewDTO review : reviewList) {
-            String id = String.valueOf(review.getUserId());
-            User user = this.reviewService.reviewFindById(review.getNickname());{
-            System.out.printf("%d  /   %s   /   %s   /  %s  /   %s  /   %s    \n", review.getId(), review.getBoardTitle(), review.getScore(), review.getContent(), review.getUserId(), review.getCreated_date());
+            System.out.printf("%d  /   %s   /   %s   /  %s  /   %s  /   %s    \n",
+                    review.getId(), review.getBoardTitle(), review.getScore(),
+                    review.getContent(), review.getNickname(), review.getCreated_date());
+        }
+
+    }
+
+    public void searchByNickname() {
+        System.out.println("닉네임으로 검색할 키워드를 입력하세요.");
+        System.out.print("검색어: ");
+        String searchKeyword = Global.getScanner().nextLine().trim();
+
+        List<ReviewDTO> searchResult = this.reviewService.searchByNickname(searchKeyword);
+
+        if (searchResult.isEmpty()) {
+            System.out.println("검색 결과가 없습니다.");
+        } else {
+            System.out.println("번호 / 보드게임 이름 / 리뷰 점수 / 리뷰 내용 / 작성자 / 등록일");
+            System.out.println("=======================================================================================");
+
+            for (ReviewDTO review : searchResult) {
+                System.out.printf("%d  /   %s   /   %s   /  %s  /   %s  /   %s    \n",
+                        review.getId(), review.getBoardTitle(), review.getScore(),
+                        review.getContent(), review.getNickname(), review.getCreated_date());
+            }
         }
     }
-}
 
+
+}
