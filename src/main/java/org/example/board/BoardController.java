@@ -188,7 +188,7 @@ public class BoardController {
                         board.getNickname(), board.getLike_count(), board.getCreated_date());
 
             }
-            System.out.println("======================= 보드게임 검색이 완료 되었습니다. =================================");
+            System.out.println("========================= 보드게임 검색이 완료 되었습니다. ===================================");
         }
     }
 
@@ -212,7 +212,7 @@ public class BoardController {
 
         String userNickname = Global.getLogineUser().getNickname();
 
-        // 여기서 hasUserLikedBoard 메서드를 사용하여 좋아요 여부를 확인합니다.
+        // 여기서 hasUserLikedBoard 메서드를 사용하여 좋아요 확인
         boolean userLikedBoard = this.boardService.hasUserLikedBoard(boardId, userNickname);
 
         if (userLikedBoard) {
@@ -253,6 +253,27 @@ public class BoardController {
 
         System.out.println(boardId + "번 게시글에 [좋아요 취소]를 누르셨습니다.");
     }
+    public void findTop3ByLikeCount() {
+        List<BoardDTO> top3Boards = this.boardService.findTop3ByLikeCount();
+
+        if (top3Boards.isEmpty()) {
+            System.out.println("좋아요가 있는 게시물이 없습니다.");
+        } else {
+            System.out.println("============================= 좋아요가 가장 많은 3개의 게시물 입니다.=============================");
+            System.out.println("번호 / 보드게임 이름 / 게임 난이도 / 추천 인원수 / 플레이 타임 / 작성자 / 좋아요 / 등록일");
+            System.out.println("=============================================================================================");
+
+            for (BoardDTO board : top3Boards) {
+                System.out.printf("%d  /    %s  /    %s     /    %s    /     %s   /    %s   /   %d   /  %s \n",
+                        board.getId(), board.getTitle(), board.getLevel(), board.getCount() + " 명", board.getTime() + " 분",
+                        board.getNickname(), board.getLike_count(), board.getCreated_date());
+            }
+
+            System.out.println("================================= 좋아요 랭킹이 출력되었습니다. ==================================");
+        }
+    }
+
+
 }
 
 

@@ -54,6 +54,10 @@ public class BoardService {
         return boardRepository.hasUserLikedBoard(boardId, userNickname);
     }
 
+    public List<BoardDTO> findTop3ByLikeCount() {
+        return this.boardRepository.findTop3ByLikeCount();
+    }
+
 }
 
 

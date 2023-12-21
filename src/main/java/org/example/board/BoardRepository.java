@@ -43,7 +43,7 @@ public class BoardRepository {
         return boardList;
     }
 
-
+    //DTO를 사용하지 않는 boardlisk
     public List<Board> findByAll() {
         List<Board> boardList = new ArrayList<>();
 
@@ -67,6 +67,8 @@ public class BoardRepository {
         }
         return null;
     }
+
+    // DB에서 게시판 id와 유저 id를 통해 게시판 목록에서 게시글 작성자를 검색
     public List<BoardDTO> searchByBoardUser(String searchKeyword) {
         List<BoardDTO> boardList = new ArrayList<>();
 
@@ -83,7 +85,7 @@ public class BoardRepository {
 
         return boardList;
     }
-
+    // DB에서 게시판 id와 유저 id를 통해 게시판 목록에서 보드게임 이름 를 검색
     public List<BoardDTO> searchByBoardGame(String searchKeyword) {
         List<BoardDTO> boardList = new ArrayList<>();
 
@@ -129,5 +131,22 @@ public class BoardRepository {
         int count = Global.getDBConnection().selectRowIntValue(sql);
 
         return count > 0;
+    }
+
+    public List<BoardDTO> findTop3ByLikeCount() {
+        String sql = "SELECT B.*, U.nickname FROM board AS B " +
+                "INNER JOIN `user` AS U ON B.userId = U.id " +
+                "ORDER BY B.like_count DESC LIMIT 3;";
+
+        List<Map<String, Object>> rows = Global.getDBConnection().selectRows(sql);
+
+        List<BoardDTO> top3Boards = new ArrayList<>();
+
+        for (Map<String, Object> row : rows) {
+            BoardDTO board = new BoardDTO(row);
+            top3Boards.add(board);
+        }
+
+        return top3Boards;
     }
 }

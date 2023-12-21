@@ -91,7 +91,7 @@ SET `title` = '루미큐브',
 `count` = 2,
 `time` = 15,
 `userId` = 2,
-`like_count` = 0,
+`like_count` = 7,
 created_date = NOW();
 
 INSERT INTO board
@@ -100,7 +100,7 @@ SET `title` = '스플랜더',
 `count` = 4,
 `time` = 30,
 `userId` = 3,
-`like_count` = 0,
+`like_count` = 10,
 created_date = NOW();
 
 INSERT INTO board
@@ -109,7 +109,7 @@ SET `title` = '다빈치코드',
 `count` = 2,
 `time` = 15,
 `userId` = 2,
-`like_count` = 0,
+`like_count` = 3,
 created_date = NOW();
 
 INSERT INTO board
@@ -236,10 +236,15 @@ WHERE `title` LIKE '브%';
 
 SELECT COUNT(*) FROM `like` WHERE boardId = %d AND user_nickname = '%s';
 
-UPDATE board SET like_count = GREATEST(like_count - 1, 0) WHERE id = %d
+UPDATE board SET like_count = GREATEST(like_count - 1, 0) WHERE id = %d;
 
-DELETE FROM `like` WHERE boardId = %d AND user_nickname = '%s
+DELETE FROM `like` WHERE boardId = %d AND user_nickname = '%s';
 
+SELECT * FROM `board` ORDER BY `like_count` DESC LIMIT 3;
+
+SELECT B.*, U.nickname FROM board AS B " +
+                "INNER JOIN `user` AS U ON B.userId = U.id " +
+                "ORDER BY B.like_count DESC LIMIT 3;
 
 SELECT * FROM `board`;
 SELECT * FROM `review`;

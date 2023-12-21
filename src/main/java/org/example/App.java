@@ -54,7 +54,7 @@ public class App {
                     System.out.println("==============================================================");
                     break;
                 case "게시판":
-                    System.out.println("게시글 작성 / 게시글 목록 / 게시글 삭제 / 게시글 수정");
+                    System.out.println("게시글 작성 / 게시글 목록 / 게시글 삭제 / 게시글 수정 ");
                     System.out.println("======================================================");
                     break;
                 case "리뷰":
@@ -62,9 +62,9 @@ public class App {
                     System.out.println("======================================================");
                     break;
                 case "좋아요 메뉴":
-                    System.out.println("======================");
-                    System.out.println(" 좋아요 / 좋아요 취소");
-                    System.out.println("======================");
+                    System.out.println("================================");
+                    System.out.println(" 좋아요 / 좋아요 취소 / 좋아요 순위");
+                    System.out.println("================================");
                     break;
                 case "검색":
                     System.out.println("키워드를 입력하세요. | 게시판 검색 / 리뷰 검색 |");
@@ -109,6 +109,9 @@ public class App {
                     break;
                 case "좋아요 취소":
                     boardController.unlikeBoard();
+                    break;
+                case "좋아요 순위":
+                    boardController.findTop3ByLikeCount();
                     break;
                 case "회원가입":
                     userController.join();
