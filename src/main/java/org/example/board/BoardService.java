@@ -42,15 +42,19 @@ public class BoardService {
         return this.boardRepository.searchByBoardGame(searchKeyword);
     }
 
-    public void likeCountUp(Board board) {
+    public void likeBoard(Board board) {
         this.boardRepository.likeCountUp(board);
     }
 
-    public void likeCountDown(Board board) {
+    public void unlikeBoard(Board board) {
         this.boardRepository.likeCountDown(board);
     }
 
+    public boolean hasUserLikedBoard(int boardId, String userNickname) {
+        return boardRepository.hasUserLikedBoard(boardId, userNickname);
+    }
 
 }
+
 
 

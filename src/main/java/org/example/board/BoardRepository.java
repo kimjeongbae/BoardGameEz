@@ -1,7 +1,7 @@
 package org.example.board;
 
 import org.example.container.Global;
-import org.example.like.Like;
+
 
 
 import java.util.ArrayList;
@@ -10,9 +10,6 @@ import java.util.Map;
 
 public class BoardRepository {
 
-    List<Like> boadList = new ArrayList<>();
-
-    int lastLikeId = 1;
 
     public int save (String title, String level, int count, int time) {
       String sql = String.format("INSERT INTO board SET title = '%s' , level = '%s' , count = '%d' , time = '%d', userId = '%s',like_count = '%d' , created_date=now();" , title,level,count,time, Global.getLogineUser().getId(),0);
@@ -104,14 +101,33 @@ public class BoardRepository {
         return boardList;
     }
 
-
-
     public void likeCountUp(Board board) {
-        board.setLike_count(board.getLike_count() + 1);
+        if (!hasUserLikedBoard(board.getId(), Global.getLogineUser().getNickname())) {
+            String sql = String.format("INSERT INTO `like` (boardId, user_nickname) VALUES (%d, '%s');", board.getId(), Global.getLogineUser().getNickname());
+            Global.getDBConnection().insert(sql);
+
+            sql = String.format("UPDATE board SET like_count = like_count + 1 WHERE id = %d;", board.getId());
+            Global.getDBConnection().update(sql);
+        }
     }
 
     public void likeCountDown(Board board) {
-        board.setLike_count(board.getLike_count() - 1);
+        if (hasUserLikedBoard(board.getId(), Global.getLogineUser().getNickname())) {
+            String sql = String.format("DELETE FROM `like` WHERE boardId = %d AND user_nickname = '%s';", board.getId(), Global.getLogineUser().getNickname());
+            Global.getDBConnection().delete(sql);
+
+            sql = String.format("UPDATE board SET like_count = GREATEST(like_count - 1, 0) WHERE id = %d;", board.getId());
+            Global.getDBConnection().update(sql);
+        }
     }
 
+    public boolean hasUserLikedBoard(int boardId, String userNickname) {
+        String sql = String.format(
+                "SELECT COUNT(*) FROM `like` WHERE boardId = %d AND user_nickname = '%s';",
+                boardId, userNickname);
+
+        int count = Global.getDBConnection().selectRowIntValue(sql);
+
+        return count > 0;
+    }
 }

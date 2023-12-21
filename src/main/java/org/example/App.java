@@ -4,18 +4,15 @@ package org.example;
 import org.example.board.BoardController;
 import org.example.container.Global;
 import org.example.db.DBConnection;
-import org.example.like.LikeController;
+
 import org.example.review.ReviewController;
 import org.example.user.UserController;
 
-import java.util.List;
-import java.util.Map;
 
 
 public class App {
 
     BoardController boardController;
-    LikeController likeController;
     ReviewController reviewController;
     UserController userController;
 
@@ -29,7 +26,6 @@ public class App {
         Global.getDBConnection().connect();
 
         boardController = new BoardController();
-        likeController = new LikeController();
         reviewController = new ReviewController();
         userController = new UserController();
 
@@ -108,12 +104,12 @@ public class App {
                 case "리뷰 목록":
                     reviewController.list();
                     break;
-//                case "좋아요":
-//                    boardController.likeCountUp();
-//                    break;
-//                case "좋아요 취소":
-//                    boardController.likeCountDown();
-//                    break;
+                case "좋아요":
+                    boardController.likeBoard();
+                    break;
+                case "좋아요 취소":
+                    boardController.unlikeBoard();
+                    break;
                 case "회원가입":
                     userController.join();
                     break;

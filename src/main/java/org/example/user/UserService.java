@@ -23,9 +23,6 @@ public class UserService {
         return this.userRepository.userFindById(id);
     }
 
-
-
-
     public void login(User checkedUser) {
         Global.setLogineUser(checkedUser);
     }

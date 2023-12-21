@@ -1,10 +1,7 @@
 package org.example.board;
 
 import org.example.container.Global;
-import org.example.like.Like;
-import org.example.like.LikeService;
-import org.example.review.ReviewDTO;
-import org.example.user.User;
+
 import org.example.user.UserService;
 
 import java.util.List;
@@ -196,70 +193,68 @@ public class BoardController {
     }
 
 
-//    public void likeCountUp () {
-//        if (Global.getLogineUser() == null) {
-//            System.out.println("해당 기능은 로그인 후 이용 가능합니다.");
-//            return;
-//        }
-//
-//        System.out.println("좋아요 누를  게시글 번호를 입력하세요.");
-//        System.out.print("게시글 번호 : ");
-//        int boardId = Integer.parseInt(Global.getScanner().nextLine().trim());
-//        System.out.println("======================================================");
-//
-//        Board board = boardService.boardFindId(boardId);
-//
-//        if (board == null) {
-//            System.out.println("해당 게시글은 존재 하지 않습니다.");
-//            System.out.println("======================================================");
-//            return;
-//        }
-//
-//        if (boardService.alreadyLiked(boardId)){
-//            System.out.println("해당 게시글은 이미 [좋아요] 누르셨습니다.");
-//            System.out.println("======================================================");
-//        } else {
-//            int id = boardService.SaveLike(boardId);
-//            if (id > 0) {
-//                Board likeBoard = boardService.boardFindId(boardId);
-//                this.boardService.likeCountUp(likeBoard);
-//            }
-//            System.out.println(boardId + "번 게시글을 [좋아요] 누르셨습니다.");
-//            System.out.println("======================================================");
-//        }
-//
-//    }
-//
-//    public void likeCountDown () {
-//        if (Global.getLogineUser() == null) {
-//            System.out.println("해당 기능은 로그인 후 이용 가능합니다.");
-//            return;
-//        }
-//        System.out.println("좋아요 취소할 게시글 번호를 입력하세요.");
-//        System.out.print("게시글 번호 : ");
-//        int boardId = Integer.parseInt(Global.getScanner().nextLine().trim());
-//        System.out.println("======================================================");
-//
-//        Board board = boardService.boardFindId(boardId);
-//
-//        if (board == null) {
-//            System.out.println("해당 게시글은 존재 하지 않습니다.");
-//            System.out.println("======================================================");
-//            return;
-//        }
-//        if (!boardService.alreadyLiked(boardId)) {
-//            System.out.println("해당 게시글은 [좋아요] 가 없습니다.");
-//            System.out.println("======================================================");
-//        } else {
-//            this.boardService.removeLike(boardId);
-//
-//            Board likeBoard = boardService.boardFindId(boardId);
-//            this.boardService.likeCountDown(likeBoard);
-//
-//            System.out.println(boardId + "번 게시글에 [좋아요 취소]를 누르셨습니다.");
-//            System.out.println("======================================================");
-//        }
-//    }
+    public void likeBoard() {
+        if (Global.getLogineUser() == null) {
+            System.out.println("해당 기능은 로그인 후 이용 가능합니다.");
+            return;
+        }
+
+        System.out.println("좋아요 누를 게시글 번호를 입력하세요.");
+        System.out.print("게시글 번호: ");
+        int boardId = Integer.parseInt(Global.getScanner().nextLine().trim());
+
+        Board board = this.boardService.boardFindId(boardId);
+
+        if (board == null) {
+            System.out.println("해당 게시글은 존재하지 않습니다.");
+            return;
+        }
+
+        String userNickname = Global.getLogineUser().getNickname();
+
+        // 여기서 hasUserLikedBoard 메서드를 사용하여 좋아요 여부를 확인합니다.
+        boolean userLikedBoard = this.boardService.hasUserLikedBoard(boardId, userNickname);
+
+        if (userLikedBoard) {
+            System.out.println("이미 [좋아요]를 누르셨습니다.");
+        } else {
+            // 좋아요를 누르지 않은 경우에만 좋아요 증가
+            this.boardService.likeBoard(board);
+            System.out.println(boardId + "번 게시글에 [좋아요]를 누르셨습니다.");
+        }
+    }
+
+    public void unlikeBoard() {
+        if (Global.getLogineUser() == null) {
+            System.out.println("해당 기능은 로그인 후 이용 가능합니다.");
+            return;
+        }
+
+        System.out.println("좋아요 취소할 게시글 번호를 입력하세요.");
+        System.out.print("게시글 번호: ");
+        int boardId = Integer.parseInt(Global.getScanner().nextLine().trim());
+
+        Board board = this.boardService.boardFindId(boardId);
+
+        if (board == null) {
+            System.out.println("해당 게시글은 존재하지 않습니다.");
+            return;
+        }
+
+        // 사용자가 좋아요를 눌렀는지 확인
+        boolean userLikedBoard = this.boardService.hasUserLikedBoard(boardId, Global.getLogineUser().getNickname());
+        if (!userLikedBoard) {
+            System.out.println("해당 게시글에 [좋아요]를 누른 적이 없습니다.");
+            return;
+        }
+
+        // 좋아요 취소 및 갱신
+        this.boardService.unlikeBoard(board);
+
+        System.out.println(boardId + "번 게시글에 [좋아요 취소]를 누르셨습니다.");
+    }
 }
+
+
 
 
